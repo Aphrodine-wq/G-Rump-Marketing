@@ -111,7 +111,7 @@ const Footer: React.FC = () => {
 
         {/* Bottom Bar */}
         <div className="border-t border-gray-100 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500">
-          <p>&copy; {currentYear} G-Rump Inc.</p>
+          <p>&copy; {currentYear} G-Rump Inc. All rights reserved.</p>
           <nav aria-label="Legal links" className="flex items-center gap-6 mt-4 md:mt-0">
             <Link to="/docs/legal/PRIVACY_POLICY" className="hover:text-gray-900 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 rounded">Privacy</Link>
             <Link to="/docs/legal/TERMS_OF_SERVICE" className="hover:text-gray-900 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 rounded">Terms</Link>

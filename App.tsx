@@ -1,6 +1,7 @@
 import React, { Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
+import { Analytics } from "@vercel/analytics/react";
 import Layout from './layouts/Layout';
 
 // Lazy load all page components for better performance
@@ -69,6 +70,7 @@ const App: React.FC = () => {
       <Layout>
         <AnimatedRoutes />
       </Layout>
+      <Analytics />
     </Router>
   );
 };

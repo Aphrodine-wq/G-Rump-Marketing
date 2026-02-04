@@ -163,10 +163,15 @@ const DocsPage: React.FC = () => {
             <div className="mt-20 pt-8 border-t border-[#e5e7eb] flex flex-col sm:flex-row justify-between text-sm text-[#6b7280] gap-4">
                <div className="flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-[#7c3aed]"></span>
-                  <span>Version 2.1.0 · Last updated: February 2026</span>
+                  <span>Version 2.4.0 · Last updated: February 2026</span>
                </div>
-               <a href="#" className="flex items-center gap-2 hover:text-[#7c3aed] transition-colors font-medium">
-                  Edit this page on GitHub <ChevronRight size={14} />
+               <a 
+                 href="https://github.com/Aphrodine-wq/g-rump.com" 
+                 target="_blank"
+                 rel="noopener noreferrer"
+                 className="flex items-center gap-2 hover:text-[#7c3aed] transition-colors font-medium"
+               >
+                  View on GitHub <ChevronRight size={14} />
                </a>
             </div>
           </motion.main>
@@ -187,7 +192,12 @@ const DocsPage: React.FC = () => {
              <div className="mt-8 p-4 badge rounded-xl">
                 <h6 className="font-bold text-[#7c3aed] text-sm mb-1">Need help?</h6>
                 <p className="text-xs text-[#7c3aed] mb-3 leading-relaxed">Join our Discord community for real-time support.</p>
-                <a href="#" className="block w-full py-1.5 btn-primary text-center text-xs font-bold rounded-lg">
+                <a 
+                  href="https://discord.gg/pPJeWGyf" 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block w-full py-1.5 btn-primary text-center text-xs font-bold rounded-lg"
+                >
                    Join Discord
                 </a>
              </div>

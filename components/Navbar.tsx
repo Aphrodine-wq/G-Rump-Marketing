@@ -5,11 +5,20 @@ import Logo from './Logo';
 
 const Navbar: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
     setMobileMenuOpen(false);
   }, [location.pathname]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const navLinks = [
     { name: 'How it Works', href: '/#how-it-works', path: '/' },
@@ -21,7 +30,7 @@ const Navbar: React.FC = () => {
   return (
     <>
       <nav
-        className="fixed w-full nav-glass z-50"
+        className={`fixed w-full nav-glass z-50 transition-shadow duration-300 ${scrolled ? 'scrolled' : ''}`}
         role="navigation"
         aria-label="Main navigation"
       >

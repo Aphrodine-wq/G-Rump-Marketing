@@ -39,47 +39,91 @@ const PricingPage: React.FC = () => {
   ];
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0 }}
-      className="pt-32 pb-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto bg-app min-h-screen"
-    >
-      <div className="text-center mb-16">
-        <h1 className="text-h2 md:text-h2-lg font-bold tracking-tight text-[#1a1a2e] mb-4">Simple, Transparent Pricing</h1>
-        <p className="text-body-lg text-[#4a4a5a] max-w-2xl mx-auto mb-2">
-          Start free. Scale when you&apos;re ready.
-        </p>
-        <p className="text-body-sm text-[#6b7280] max-w-xl mx-auto mb-6">
-          No hidden fees for compute or bandwidth.
-        </p>
-        
-        <div className="flex items-center justify-center mt-10 gap-4">
-            <span className={`text-sm font-bold ${!annual ? 'text-gray-900' : 'text-gray-500'}`}>Monthly</span>
+    <div className="min-h-screen bg-gradient-to-b from-white via-white to-purple-50/40">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0 }}
+        className="pt-32 pb-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto"
+      >
+        <div className="text-center mb-16">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="inline-flex items-center gap-2 rounded-full border border-purple-200 bg-purple-50 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-purple-600 shadow-sm mb-6"
+          >
+            <span className="pulse-dot" />
+            Flexible plans for every team
+          </motion.div>
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="text-[2.5rem] md:text-[3rem] font-bold tracking-tight text-[#1a1a2e] mb-4"
+          >
+            Simple, Transparent Pricing
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="text-body-lg text-[#4a4a5a] max-w-2xl mx-auto mb-2"
+          >
+            Start free. Scale when you&apos;re ready.
+          </motion.p>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.25 }}
+            className="text-body-sm text-[#6b7280] max-w-xl mx-auto mb-6"
+          >
+            No hidden fees for compute or bandwidth.
+          </motion.p>
+          
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="flex items-center justify-center mt-10 gap-4"
+          >
+            <span className={`text-sm font-bold transition-colors ${!annual ? 'text-gray-900' : 'text-gray-500'}`}>Monthly</span>
             <button 
-                onClick={() => setAnnual(!annual)}
-                className="w-14 h-8 bg-purple-600 rounded-full p-1 relative transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
+              onClick={() => setAnnual(!annual)}
+              className="w-14 h-8 bg-purple-600 rounded-full p-1 relative transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 hover:shadow-lg hover:bg-purple-700"
             >
-                <div className={`w-6 h-6 bg-white rounded-full shadow-md transform transition-transform duration-300 ${annual ? 'translate-x-6' : 'translate-x-0'}`}></div>
+              <div className={`w-6 h-6 bg-white rounded-full shadow-md transform transition-transform duration-300 ${annual ? 'translate-x-6' : 'translate-x-0'}`}></div>
             </button>
-            <span className={`text-sm font-bold ${annual ? 'text-gray-900' : 'text-gray-500'}`}>Annual <span className="text-green-600 text-xs ml-1 font-normal bg-green-50 px-2 py-0.5 rounded-full border border-green-100">(Save 20%)</span></span>
+            <span className={`text-sm font-bold transition-colors ${annual ? 'text-gray-900' : 'text-gray-500'}`}>
+              Annual <span className="text-green-600 text-xs ml-1 font-normal bg-green-50 px-2 py-0.5 rounded-full border border-green-100">(Save 20%)</span>
+            </span>
+          </motion.div>
         </div>
-      </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
         {plans.map((plan, i) => (
             <motion.div
                 key={plan.name}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.1 }}
+                transition={{ delay: i * 0.15, duration: 0.6, ease: [0.16, 1, 0.3, 1] as const }}
                 viewport={{ once: true }}
-                className={`relative p-8 rounded-2xl feature-card ${plan.popular ? 'border-[#7c3aed] shadow-2xl scale-105 z-10' : ''}`}
+                whileHover={{ y: -8, transition: { duration: 0.2 } }}
+                className={`relative p-8 rounded-3xl border bg-white/80 backdrop-blur-sm transition-all ${
+                  plan.popular 
+                    ? 'border-purple-200 shadow-2xl shadow-purple-100/50 scale-105 z-10' 
+                    : 'border-purple-100/70 shadow-lg hover:border-purple-200 hover:shadow-xl'
+                }`}
             >
                 {plan.popular && (
-                    <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 btn-primary px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wide shadow-lg">
+                    <motion.div
+                      initial={{ scale: 0.8, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      transition={{ delay: 0.5 }}
+                      className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 btn-primary px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wide shadow-lg"
+                    >
                         Most Popular
-                    </div>
+                    </motion.div>
                 )}
                 
                 <div className={`w-12 h-12 rounded-xl ${plan.color} flex items-center justify-center mb-6`}>
@@ -94,10 +138,10 @@ const PricingPage: React.FC = () => {
                     <span className="text-[#6b7280]">/per user/month</span>
                 </div>
                 
-                <button className={`w-full py-3 rounded-xl font-bold mb-4 transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 min-h-[44px] ${plan.popular ? 'btn-primary focus:ring-[#7c3aed]' : 'btn-secondary focus:ring-[#7c3aed]'}`}>
+                <button className={`w-full py-3 rounded-xl font-bold mb-4 transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 min-h-[44px] active:scale-95 ${plan.popular ? 'btn-primary focus:ring-[#7c3aed]' : 'btn-secondary focus:ring-[#7c3aed]'}`}>
                     {plan.button}
                 </button>
-                <p className="text-caption text-[#6b7280] mb-8">All plans include access to docs and community.</p>
+                <p className="text-caption text-[#6b7280] mb-8 text-center">All plans include access to docs and community.</p>
                 
                 <ul className="space-y-4">
                     {plan.features.map(feature => (
@@ -113,23 +157,56 @@ const PricingPage: React.FC = () => {
         ))}
       </div>
 
-      <div className="mt-24 bg-gray-900 rounded-3xl p-12 text-center text-white relative overflow-hidden shadow-2xl">
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+          className="mt-24 bg-gray-900 rounded-3xl p-12 text-center text-white relative overflow-hidden shadow-2xl"
+        >
           <div className="relative z-10">
-              <div className="w-16 h-16 mx-auto bg-gray-800 rounded-2xl flex items-center justify-center mb-6 border border-gray-700">
-                 <Shield size={32} className="text-purple-400" />
-              </div>
-              <h3 className="text-3xl font-bold mb-6">Enterprise Custom Architecture</h3>
-              <p className="text-gray-400 max-w-2xl mx-auto mb-8 text-lg leading-relaxed">
-                  We offer dedicated support for high-compliance industries including Healthcare, Finance, and Defense. Get a custom contract with SLA guarantees.
-              </p>
-              <button className="bg-white text-gray-900 px-8 py-3 rounded-full font-bold hover:bg-gray-100 transition-all hover:shadow-lg hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-white">
-                  Contact Solutions Engineering
-              </button>
+            <div className="w-16 h-16 mx-auto bg-gray-800 rounded-2xl flex items-center justify-center mb-6 border border-gray-700">
+              <Shield size={32} className="text-purple-400" />
+            </div>
+            <h3 className="text-3xl font-bold mb-6">Enterprise Custom Architecture</h3>
+            <p className="text-gray-400 max-w-2xl mx-auto mb-8 text-lg leading-relaxed">
+              We offer dedicated support for high-compliance industries including Healthcare, Finance, and Defense. Get a custom contract with SLA guarantees.
+            </p>
+            <a
+              href="mailto:enterprise@g-rump.com?subject=Enterprise%20Inquiry"
+              className="inline-block bg-white text-gray-900 px-8 py-3 rounded-full font-bold hover:bg-gray-100 transition-all hover:shadow-lg hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-white active:scale-95"
+            >
+              Contact Solutions Engineering
+            </a>
           </div>
           <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-purple-900/30 to-transparent pointer-events-none"></div>
           <div className="absolute -bottom-24 -right-24 w-64 h-64 bg-purple-600/20 rounded-full blur-3xl pointer-events-none"></div>
-      </div>
-    </motion.div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.8 }}
+          className="mt-16 text-center"
+        >
+          <p className="text-sm text-gray-500 mb-4">Trusted by teams at innovative companies</p>
+          <div className="flex flex-wrap items-center justify-center gap-6 text-xs text-gray-400">
+            <span className="flex items-center gap-2">
+              <Check size={14} className="text-green-500" />
+              No credit card required
+            </span>
+            <span className="flex items-center gap-2">
+              <Check size={14} className="text-green-500" />
+              Cancel anytime
+            </span>
+            <span className="flex items-center gap-2">
+              <Check size={14} className="text-green-500" />
+              14-day money-back guarantee
+            </span>
+          </div>
+        </motion.div>
+      </motion.div>
+    </div>
   );
 };
 

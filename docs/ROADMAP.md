@@ -1,6 +1,19 @@
 # G-Rump Roadmap
 
-> **Version:** 2.1.0 | **Last Updated:** January 2026
+> **Version:** 2.1.0 | **Last Updated:** February 2026
+
+## Current Focus: NVIDIA Golden Developer Award
+
+G-Rump is pivoting to full NVIDIA Golden Developer Award compliance. All six checklist requirements are now addressed:
+
+| Requirement | Implementation | Location |
+|-------------|----------------|----------|
+| **Cloud** | NGC-ready deployment on GCP/AWS | [deploy/ngc/](../deploy/ngc/) |
+| **Data** | NeMo Curator synthetic data pipeline | [services/nemo-curator/](../services/nemo-curator/) |
+| **Framework** | NVIDIA NIM for LLMs and RAG | Built-in |
+| **Training** | NeMo Framework fine-tuning example | [services/nemo-training/](../services/nemo-training/) |
+| **Inference** | NVIDIA NIM (Nemotron) | Built-in |
+| **Observability** | NIM-aligned metrics, OTEL | [NVIDIA_OBSERVABILITY.md](NVIDIA_OBSERVABILITY.md) |
 
 ## Version Milestones
 
@@ -8,7 +21,8 @@
 |---------|--------|-------|--------|
 | **v1.0** | Q1 2026 | Core SHIP workflow, Electron app, basic codegen | Shipped |
 | **v2.0** | Q1 2026 | G-Agent orchestration, Express 5, enhanced caching | Shipped |
-| **v2.1** | Q1 2026 | RAG integration, agent evals, VS Code extension | Current |
+| **v2.1** | Q1 2026 | RAG, agent evals, VS Code extension | Shipped |
+| **v2.1+** | Q1 2026 | NVIDIA Golden Developer pivot (NGC, NeMo, observability) | **Current** |
 | **v2.2** | Q2 2026 | More IDE integrations, Intent Optimizer, codebase scanner | Planned |
 | **v3.0** | Q3 2026 | Enhanced G-Agent, "Wow" features, offline support | Planned |
 
@@ -29,6 +43,11 @@
 - RAG onboarding slide and discoverability improvements
 - Pinecone vector database integration
 
+### Intent-RAG Fusion (Shipped)
+- Intent-guided retrieval: parse intent from query, expand query with features/tech/data flows, then retrieve and rerank for architecture, spec, plan, chat, and ship
+- RAG-augmented intent enrichment: inject knowledge-base excerpts into the intent enrichment prompt for consistency with existing docs/specs
+- Optional `intentGuided: true` on `POST /api/rag/query`; env toggles `RAG_INTENT_GUIDED` and `INTENT_RAG_AUGMENT_ENRICH`
+
 ### G-Agent Evals (Shipped)
 - Golden-task definitions in `backend/tests/evals/*Tasks.ts`
 - LLM-as-judge via `backend/tests/evals/judge.ts`
@@ -42,7 +61,35 @@
 
 ---
 
+## Completed (NVIDIA Golden Developer Pivot)
+
+### NGC-Ready Cloud Deployment (Shipped)
+- GCP and AWS provision scripts for NGC-certified VMs
+- CPU-only and GPU (T4) options
+- Docker Compose deploy scripts; documented in [deploy/ngc/](../deploy/ngc/)
+
+### NeMo Curator Synthetic Data (Shipped)
+- Python pipeline using Nemotron over NIM for Q&A generation
+- Output JSONL for RAG indexing; `npm run data:synth`
+- See [services/nemo-curator/](../services/nemo-curator/)
+
+### NeMo Framework Fine-Tuning (Shipped)
+- Example SFT/LoRA script for NGC GPU
+- README with NGC run instructions
+- See [services/nemo-training/](../services/nemo-training/)
+
+### NVIDIA Observability (Shipped)
+- NIM-aligned metrics: TTFB, tokens/sec, model labels
+- OpenTelemetry with `nvidia.nim.*` span attributes
+- [NVIDIA_OBSERVABILITY.md](NVIDIA_OBSERVABILITY.md)
+
+---
+
 ## In Progress (v2.2)
+
+### 0. TODOs triage (recommended before award)
+
+Triage the ~41 TODO/FIXME matches across the repo (e.g. `RefactoredChatInterface.svelte`, backend services, CLI commands) into: **fix before award**, **fix in v2.2**, and **defer**. Fix or document high-impact ones (e.g. RefactoredChatInterface, agents routes) before the award deadline. See `npm run check-all` and test runs for regressions.
 
 ### 1. Intent Optimizer (P0)
 
@@ -98,7 +145,6 @@ Ideas to make the experience feel more impressive:
 - Polished UI details: motion that respects "Reduced Motion", subtle transitions, keyboard shortcuts, rich empty states.
 - One-click "demo mode" that spins up a sample project and walks through Architecture → Spec → Plan → Code.
 - Shareable artifacts: exportable links or bundles for diagrams, PRDs, plans, and G-Agent work reports.
-- One-click deploy for generated apps (e.g. opinionated Vercel presets for common stacks).
 - A short, scripted end-to-end demo (recorded or live) that shows SHIP, G-Agent reports, quality analysis, and scheduled tasks.
 
 ### 6. Enhanced Webhooks (P1)
@@ -152,8 +198,9 @@ The Electron desktop app (Windows) includes:
 
 ### Completed
 - Docker support with GPU acceleration
+- **NGC-ready cloud deployment** (GCP, AWS) for NVIDIA Golden Developer compliance
 - Kubernetes manifests for production-scale deployments
-- Prometheus + Grafana observability stack
+- Prometheus + Grafana observability stack (NIM-aligned metrics)
 - HAProxy configuration for load balancing
 - ROCm Docker compose for AMD GPU support
 - k6 load testing integration in CI

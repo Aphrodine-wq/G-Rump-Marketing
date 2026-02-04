@@ -45,32 +45,32 @@ const DocsPage: React.FC = () => {
   const title = slug.split('/').pop()?.replace(/_/g, ' ').replace(/-/g, ' ') || 'Documentation';
 
   return (
-    <div className="pt-20 min-h-screen bg-white text-gray-900 font-sans">
+    <div className="pt-20 min-h-screen bg-app text-[#1a1a2e] font-sans">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row md:gap-12 lg:gap-16">
           
           {/* Mobile Sidebar Toggle */}
-          <div className="md:hidden mb-6 flex items-center justify-between border-b border-gray-100 pb-4">
-             <div className="flex items-center gap-2 text-gray-900 font-bold">
-               <FileText size={18} className="text-purple-600" />
+          <div className="md:hidden mb-6 flex items-center justify-between border-b border-[#e5e7eb] pb-4">
+             <div className="flex items-center gap-2 text-[#1a1a2e] font-bold">
+               <FileText size={18} className="text-[#7c3aed]" />
                <span>{title}</span>
              </div>
              <button 
                 onClick={() => setIsMobileMenuOpen(true)}
-                className="p-2 text-gray-500 hover:bg-gray-50 rounded-lg transition-colors"
+                className="p-2 text-[#4a4a5a] hover:bg-[#f5f5f7] rounded-lg transition-colors"
              >
                 <Menu size={20} />
              </button>
           </div>
 
           {/* Sidebar (Desktop) */}
-          <aside className="hidden md:block w-64 shrink-0 border-r border-gray-100 sticky top-24 h-[calc(100vh-6rem)] overflow-y-auto pr-6 custom-scrollbar">
+          <aside className="hidden md:block w-64 shrink-0 border-r border-[#e5e7eb] sticky top-24 h-[calc(100vh-6rem)] overflow-y-auto pr-6 custom-scrollbar">
              <div className="relative mb-8 group">
-                 <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-purple-600 transition-colors" />
+                 <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#6b7280] group-focus-within:text-[#7c3aed] transition-colors" />
                  <input 
                     type="text" 
                     placeholder="Search docs..." 
-                    className="w-full pl-9 pr-4 py-2 bg-white border border-gray-200 rounded-lg text-sm placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500 transition-all shadow-sm"
+                    className="input-field w-full pl-9 pr-4 py-2 rounded-lg text-sm"
                  />
              </div>
              <DocsSidebar />
@@ -78,10 +78,10 @@ const DocsPage: React.FC = () => {
 
           {/* Mobile Sidebar Overlay */}
           {isMobileMenuOpen && (
-            <div className="fixed inset-0 z-50 bg-white md:hidden animate-fade-in-up flex flex-col">
-               <div className="flex items-center justify-between p-4 border-b border-gray-100">
-                  <span className="font-bold text-lg text-gray-900">Documentation</span>
-                  <button onClick={() => setIsMobileMenuOpen(false)} className="p-2 hover:bg-gray-100 rounded-full text-gray-500">
+            <div className="fixed inset-0 z-50 bg-app md:hidden animate-fade-in-up flex flex-col">
+               <div className="flex items-center justify-between p-4 border-b border-[#e5e7eb]">
+                  <span className="font-bold text-lg text-[#1a1a2e]">Documentation</span>
+                  <button onClick={() => setIsMobileMenuOpen(false)} className="p-2 hover:bg-[#f5f5f7] rounded-full text-[#4a4a5a]">
                      <X size={24} />
                   </button>
                </div>
@@ -99,12 +99,12 @@ const DocsPage: React.FC = () => {
             className="flex-1 min-w-0 pb-24"
           >
             {/* Breadcrumbs */}
-            <nav className="flex items-center text-xs font-medium text-gray-400 mb-8 overflow-x-auto whitespace-nowrap pb-2">
-              <Link to="/docs" className="hover:text-purple-600 transition-colors">Docs</Link>
+            <nav className="flex items-center text-xs font-medium text-[#6b7280] mb-8 overflow-x-auto whitespace-nowrap pb-2">
+              <Link to="/docs" className="hover:text-[#7c3aed] transition-colors">Docs</Link>
               {slug.split('/').map((part, i, arr) => (
                 <React.Fragment key={i}>
-                  <ChevronRight size={12} className="mx-2 shrink-0 text-gray-300" />
-                  <span className={i === arr.length - 1 ? 'text-gray-900 font-bold bg-gray-50 px-2 py-0.5 rounded-md' : 'hover:text-gray-600 transition-colors'}>
+                  <ChevronRight size={12} className="mx-2 shrink-0 text-[#e5e7eb]" />
+                  <span className={i === arr.length - 1 ? 'text-[#1a1a2e] font-bold bg-[#f5f5f7] px-2 py-0.5 rounded-md' : 'hover:text-[#1a1a2e] transition-colors'}>
                     {part.replace(/_/g, ' ').replace(/-/g, ' ')}
                   </span>
                 </React.Fragment>
@@ -113,28 +113,28 @@ const DocsPage: React.FC = () => {
 
             {isLoading ? (
                <div className="space-y-6 animate-pulse max-w-3xl">
-                  <div className="h-12 bg-gray-100 rounded-lg w-3/4"></div>
+                  <div className="h-12 bg-[#f5f5f7] rounded-lg w-3/4"></div>
                   <div className="space-y-3">
-                     <div className="h-4 bg-gray-50 rounded w-full"></div>
-                     <div className="h-4 bg-gray-50 rounded w-5/6"></div>
-                     <div className="h-4 bg-gray-50 rounded w-4/6"></div>
+                     <div className="h-4 bg-[#f5f5f7] rounded w-full"></div>
+                     <div className="h-4 bg-[#f5f5f7] rounded w-5/6"></div>
+                     <div className="h-4 bg-[#f5f5f7] rounded w-4/6"></div>
                   </div>
-                  <div className="h-40 bg-gray-50 rounded-xl w-full mt-8"></div>
+                  <div className="h-40 bg-[#f5f5f7] rounded-xl w-full mt-8"></div>
                </div>
             ) : (
               <article className="prose prose-lg prose-slate max-w-none 
-                prose-headings:font-bold prose-headings:tracking-tight prose-headings:text-gray-900 
+                prose-headings:font-bold prose-headings:tracking-tight prose-headings:text-[#1a1a2e] 
                 prose-h1:text-4xl prose-h1:mb-8
-                prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-6 prose-h2:border-b prose-h2:border-gray-100 prose-h2:pb-2
-                prose-p:text-gray-600 prose-p:leading-7 prose-p:mb-6
-                prose-a:text-purple-600 prose-a:font-medium prose-a:no-underline hover:prose-a:underline
-                prose-code:text-purple-700 prose-code:bg-purple-50 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-md prose-code:text-sm prose-code:before:content-none prose-code:after:content-none prose-code:border prose-code:border-purple-100
-                prose-pre:bg-gray-900 prose-pre:border prose-pre:border-gray-800 prose-pre:rounded-xl prose-pre:shadow-lg
-                prose-img:rounded-xl prose-img:shadow-md prose-img:border prose-img:border-gray-100
-                prose-table:border prose-table:border-gray-200 prose-table:rounded-lg prose-table:overflow-hidden
-                prose-th:bg-gray-50 prose-th:text-gray-900 prose-th:p-4 prose-th:font-semibold
-                prose-td:p-4 prose-td:text-gray-600 prose-td:border-t prose-td:border-gray-100
-                prose-li:text-gray-600 prose-li:marker:text-purple-300
+                prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-6 prose-h2:border-b prose-h2:border-[#e5e7eb] prose-h2:pb-2
+                prose-p:text-[#4a4a5a] prose-p:leading-7 prose-p:mb-6
+                prose-a:text-[#7c3aed] prose-a:font-medium prose-a:no-underline hover:prose-a:underline
+                prose-code:text-[#7c3aed] prose-code:bg-[rgba(124,58,237,0.1)] prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-md prose-code:text-sm prose-code:before:content-none prose-code:after:content-none prose-code:border prose-code:border-[rgba(124,58,237,0.2)]
+                prose-pre:bg-[#1a1a2e] prose-pre:border prose-pre:border-[#e5e7eb] prose-pre:rounded-xl prose-pre:shadow-lg
+                prose-img:rounded-xl prose-img:shadow-md prose-img:border prose-img:border-[#e5e7eb]
+                prose-table:border prose-table:border-[#e5e7eb] prose-table:rounded-lg prose-table:overflow-hidden
+                prose-th:bg-[#f5f5f7] prose-th:text-[#1a1a2e] prose-th:p-4 prose-th:font-semibold
+                prose-td:p-4 prose-td:text-[#4a4a5a] prose-td:border-t prose-td:border-[#e5e7eb]
+                prose-li:text-[#4a4a5a] prose-li:marker:text-[#7c3aed]
               ">
                 <ReactMarkdown 
                   remarkPlugins={[remarkGfm]} 
@@ -160,42 +160,36 @@ const DocsPage: React.FC = () => {
               </article>
             )}
             
-            <div className="mt-20 pt-8 border-t border-gray-100 flex flex-col sm:flex-row justify-between text-sm text-gray-500 gap-4">
+            <div className="mt-20 pt-8 border-t border-[#e5e7eb] flex flex-col sm:flex-row justify-between text-sm text-[#6b7280] gap-4">
                <div className="flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-green-500"></span>
-                  <span>Last updated: January 26, 2026</span>
+                  <span className="w-2 h-2 rounded-full bg-[#7c3aed]"></span>
+                  <span>Version 2.1.0 · Last updated: February 2026</span>
                </div>
-               <a href="#" className="flex items-center gap-2 hover:text-purple-600 transition-colors font-medium">
+               <a href="#" className="flex items-center gap-2 hover:text-[#7c3aed] transition-colors font-medium">
                   Edit this page on GitHub <ChevronRight size={14} />
                </a>
             </div>
           </motion.main>
 
           {/* Table of Contents (Right Sidebar) */}
-          <div className="hidden xl:block w-64 shrink-0 sticky top-24 h-[calc(100vh-6rem)] overflow-y-auto pl-8 border-l border-gray-100">
-             <div className="flex items-center gap-2 text-xs font-bold text-gray-900 uppercase tracking-widest mb-6">
-                <Hash size={12} className="text-purple-600" />
+          <div className="hidden xl:block w-64 shrink-0 sticky top-24 h-[calc(100vh-6rem)] overflow-y-auto pl-8 border-l border-[#e5e7eb]">
+             <div className="flex items-center gap-2 text-xs font-bold text-[#1a1a2e] uppercase tracking-widest mb-6">
+                <Hash size={12} className="text-[#7c3aed]" />
                 On this page
              </div>
-             <ul className="space-y-3 text-sm relative border-l border-gray-100 ml-1.5 pl-4">
-                {/* 
-                   In a real implementation, we would parse headings from 'content' 
-                   and generate this list dynamically. 
-                */}
-                <li className="text-purple-700 font-bold -ml-[17px] border-l-2 border-purple-600 pl-4 transition-all">Overview</li>
-                <li className="text-gray-500 hover:text-gray-900 cursor-pointer transition-colors">Prerequisites</li>
-                <li className="text-gray-500 hover:text-gray-900 cursor-pointer transition-colors">Installation</li>
-                <li className="text-gray-500 hover:text-gray-900 cursor-pointer transition-colors">Configuration</li>
-                <li className="text-gray-500 hover:text-gray-900 cursor-pointer transition-colors">Next Steps</li>
+             <ul className="space-y-3 text-sm relative border-l border-[#e5e7eb] ml-1.5 pl-4">
+                <li className="text-[#7c3aed] font-bold -ml-[17px] border-l-2 border-[#7c3aed] pl-4 transition-all">Overview</li>
+                <li className="text-[#4a4a5a] hover:text-[#1a1a2e] cursor-pointer transition-colors">Prerequisites</li>
+                <li className="text-[#4a4a5a] hover:text-[#1a1a2e] cursor-pointer transition-colors">Installation</li>
+                <li className="text-[#4a4a5a] hover:text-[#1a1a2e] cursor-pointer transition-colors">Configuration</li>
+                <li className="text-[#4a4a5a] hover:text-[#1a1a2e] cursor-pointer transition-colors">Next Steps</li>
              </ul>
-             
-             {/* Promo Card */}
-             <div className="mt-8 p-4 bg-purple-50 rounded-xl border border-purple-100">
-                <h6 className="font-bold text-purple-900 text-sm mb-1">Need help?</h6>
-                <p className="text-xs text-purple-700 mb-3 leading-relaxed">Join our Discord community for real-time support.</p>
-                <button className="w-full py-1.5 bg-purple-600 text-white text-xs font-bold rounded-lg hover:bg-purple-700 transition-colors">
+             <div className="mt-8 p-4 badge rounded-xl">
+                <h6 className="font-bold text-[#7c3aed] text-sm mb-1">Need help?</h6>
+                <p className="text-xs text-[#7c3aed] mb-3 leading-relaxed">Join our Discord community for real-time support.</p>
+                <a href="#" className="block w-full py-1.5 btn-primary text-center text-xs font-bold rounded-lg">
                    Join Discord
-                </button>
+                </a>
              </div>
           </div>
 

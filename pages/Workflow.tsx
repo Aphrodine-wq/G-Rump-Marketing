@@ -8,19 +8,18 @@ const WorkflowPage: React.FC = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="min-h-screen w-full bg-white text-gray-900"
+      className="min-h-screen w-full bg-app text-[#1a1a2e]"
     >
-      {/* Simple Header */}
-      <div className="bg-gradient-to-b from-purple-50 to-white py-16">
+      <div className="bg-subtle py-16 border-b border-[#e5e7eb]">
         <div className="max-w-6xl mx-auto px-6 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-100 text-purple-700 text-sm font-medium mb-6">
-            <span className="w-2 h-2 rounded-full bg-purple-500"></span>
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full badge text-sm font-medium mb-6">
+            <span className="pulse-dot"></span>
             How It Works
           </div>
-          <h1 className="text-5xl md:text-6xl font-bold tracking-tight text-gray-900 mb-6">
+          <h1 className="text-5xl md:text-6xl font-bold tracking-tight text-[#1a1a2e] mb-6">
             Simple Workflow
           </h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-xl text-[#4a4a5a] max-w-2xl mx-auto leading-relaxed">
             From idea to deployment in three easy steps. No complexity, just results.
           </p>
         </div>

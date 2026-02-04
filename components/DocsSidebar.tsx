@@ -1,62 +1,72 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { Book, Layers, Terminal, Code, Activity, Shield, FileText, ChevronDown } from 'lucide-react';
+import { Book, Layers, Terminal, Code, Activity, Shield, FileText } from 'lucide-react';
 
-interface DocsSidebarProps {
-  onCloseMobile?: () => void;
+interface SectionItem {
+  label: string;
+  to: string;
 }
 
-const DocsSidebar: React.FC<DocsSidebarProps> = ({ onCloseMobile }) => {
-  const sections = [
+interface Section {
+  title: string;
+  icon: React.ElementType;
+  items: SectionItem[];
+}
+
+const DocsSidebar: React.FC<{ onCloseMobile?: () => void }> = ({ onCloseMobile }) => {
+  const sections: Section[] = [
     {
-      title: 'Getting Started',
+      title: 'Quick Start',
       icon: Book,
       items: [
         { label: 'Introduction', to: '/docs/README' },
-        { label: 'Quick Start', to: '/docs/GETTING_STARTED' },
-        { label: 'Installation', to: '/docs/SETUP' },
-        { label: 'For New Developers', to: '/docs/ONBOARDING' },
-      ]
+        { label: 'Getting Started', to: '/docs/GETTING_STARTED' },
+        { label: 'FAQ', to: '/docs/FAQ' },
+      ],
     },
     {
-      title: 'Core Concepts',
+      title: 'For Users',
+      icon: FileText,
+      items: [
+        { label: 'Getting Started', to: '/docs/GETTING_STARTED' },
+        { label: 'How It Works', to: '/docs/HOW_IT_WORKS' },
+        { label: 'CLI', to: '/docs/CLI' },
+        { label: 'FAQ', to: '/docs/FAQ' },
+        { label: 'Troubleshooting', to: '/docs/TROUBLESHOOTING' },
+      ],
+    },
+    {
+      title: 'For Developers',
       icon: Layers,
       items: [
-        { label: 'Overview', to: '/docs/OVERVIEW' },
-        { label: 'How It Works', to: '/docs/HOW_IT_WORKS' },
         { label: 'Architecture', to: '/docs/ARCHITECTURE' },
-        { label: 'Intent Compiler', to: '/docs/INTENT_COMPILER' },
-      ]
+        { label: 'API Reference', to: '/docs/API' },
+        { label: 'Agent System', to: '/docs/AGENT_SYSTEM' },
+        { label: 'Development', to: '/docs/DEVELOPMENT' },
+        { label: 'Contributing', to: '/docs/legal/CONTRIBUTING' },
+      ],
     },
     {
-      title: 'Features',
-      icon: Terminal,
+      title: 'For Operators',
+      icon: Activity,
       items: [
-        { label: 'Capabilities', to: '/docs/CAPABILITIES' },
-        { label: 'Agent System', to: '/docs/AGENT_SYSTEM' },
-        { label: 'AI Workflows', to: '/docs/AI_WORKFLOWS' },
-        { label: 'Backends', to: '/docs/BACKENDS' },
-      ]
+        { label: 'Production', to: '/docs/PRODUCTION' },
+        { label: 'Security', to: '/docs/SECURITY' },
+        { label: 'GPU Deployment', to: '/docs/GPU_DEPLOYMENT' },
+        { label: 'NVIDIA Golden Developer', to: '/docs/NVIDIA_GOLDEN_DEVELOPER' },
+        { label: 'NVIDIA Observability', to: '/docs/NVIDIA_OBSERVABILITY' },
+      ],
     },
     {
       title: 'Reference',
       icon: Code,
       items: [
-        { label: 'API Reference', to: '/docs/API' },
-        { label: 'CLI Reference', to: '/docs/QUICK_REFERENCE' },
+        { label: 'API', to: '/docs/API' },
+        { label: 'CLI', to: '/docs/CLI' },
         { label: 'Integrations', to: '/docs/INTEGRATIONS' },
-        { label: 'Known Issues', to: '/docs/KNOWN_ISSUES' },
-      ]
-    },
-    {
-      title: 'Operations',
-      icon: Activity,
-      items: [
-        { label: 'Production Checklist', to: '/docs/PRODUCTION_CHECKLIST' },
-        { label: 'Runbook', to: '/docs/RUNBOOK' },
-        { label: 'Observability', to: '/docs/OBSERVABILITY' },
-        { label: 'Performance', to: '/docs/PERFORMANCE_GUIDE' },
-      ]
+        { label: 'Backends', to: '/docs/BACKENDS' },
+        { label: 'Intent RAG Fusion', to: '/docs/INTENT_RAG_FUSION' },
+      ],
     },
     {
       title: 'Legal',
@@ -65,33 +75,33 @@ const DocsSidebar: React.FC<DocsSidebarProps> = ({ onCloseMobile }) => {
         { label: 'Terms of Service', to: '/docs/legal/TERMS_OF_SERVICE' },
         { label: 'Privacy Policy', to: '/docs/legal/PRIVACY_POLICY' },
         { label: 'Acceptable Use', to: '/docs/legal/ACCEPTABLE_USE_POLICY' },
-      ]
-    }
+        { label: 'Code of Conduct', to: '/docs/legal/CODE_OF_CONDUCT' },
+      ],
+    },
   ];
 
   return (
     <nav className="space-y-8 pb-10">
+      <p className="text-[#6b7280] text-xs font-medium mb-4">Version 2.1.0 · February 2026</p>
       {sections.map((section) => (
         <div key={section.title}>
-          <div className="flex items-center justify-between gap-2 px-3 mb-3 text-xs font-bold text-gray-900 uppercase tracking-widest opacity-80">
-            <div className="flex items-center gap-2">
-               <section.icon size={14} className="text-purple-600" />
-               {section.title}
-            </div>
+          <div className="flex items-center gap-2 px-3 mb-3 text-xs font-bold text-[#1a1a2e] uppercase tracking-widest opacity-80">
+            <section.icon size={14} className="text-[#7c3aed]" />
+            {section.title}
           </div>
-          <ul className="space-y-0.5 border-l border-gray-100 ml-2 pl-2">
+          <ul className="space-y-0.5 border-l border-[#e5e7eb] ml-2 pl-2">
             {section.items.map((item) => (
               <li key={item.to}>
                 <NavLink
                   to={item.to}
                   onClick={onCloseMobile}
-                  className={({ isActive }) => `
-                    block px-3 py-1.5 text-sm rounded-md transition-all duration-200 border border-transparent
-                    ${isActive 
-                      ? 'bg-purple-50 text-purple-700 font-bold border-purple-100 shadow-sm translate-x-1' 
-                      : 'text-gray-500 hover:text-gray-900 hover:bg-gray-50'
-                    }
-                  `}
+                  className={({ isActive }) =>
+                    `block px-3 py-1.5 text-sm rounded-md transition-all duration-200 border border-transparent ${
+                      isActive
+                        ? 'bg-[rgba(124,58,237,0.1)] text-[#7c3aed] font-semibold border-[rgba(124,58,237,0.2)]'
+                        : 'text-[#4a4a5a] hover:text-[#1a1a2e] hover:bg-[#f5f5f7]'
+                    }`
+                  }
                 >
                   {item.label}
                 </NavLink>

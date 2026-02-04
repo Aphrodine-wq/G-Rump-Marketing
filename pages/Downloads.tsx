@@ -9,7 +9,7 @@ const DownloadsPage: React.FC = () => {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
-      className="pt-20"
+      className="pt-20 bg-app min-h-screen"
     >
       <Downloads />
     </motion.div>

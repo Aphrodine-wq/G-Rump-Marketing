@@ -58,17 +58,17 @@ const Logo: React.FC<LogoProps> = ({
       onClick={() => setIsHappy(!isHappy)}
     >
       <svg viewBox="-10 -10 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
-        <circle cx="50" cy="50" r="45" stroke={isHappy ? "#22c55e" : "#9333ea"} strokeWidth="6" fill="white" className="transition-colors duration-300" />
+        <circle cx="50" cy="50" r="45" stroke={isHappy ? "#22c55e" : "#7c3aed"} strokeWidth="6" fill="white" className="transition-colors duration-300" />
         
         <g style={{ transform: eyeTransform, transition: 'transform 0.1s ease-out' }}>
-          <circle cx="32" cy="38" r="6" fill={isHappy ? "#22c55e" : "#9333ea"} className="transition-colors duration-300" />
-          <circle cx="68" cy="38" r="6" fill={isHappy ? "#22c55e" : "#9333ea"} className="transition-colors duration-300" />
+          <circle cx="32" cy="38" r="6" fill={isHappy ? "#22c55e" : "#7c3aed"} className="transition-colors duration-300" />
+          <circle cx="68" cy="38" r="6" fill={isHappy ? "#22c55e" : "#7c3aed"} className="transition-colors duration-300" />
         </g>
         
         {/* Mouth transitions between Frown and Smile */}
         <path 
           d={isHappy ? "M 32 72 Q 50 90 68 72" : "M 32 72 Q 50 55 68 72"} 
-          stroke={isHappy ? "#22c55e" : "#9333ea"} 
+          stroke={isHappy ? "#22c55e" : "#7c3aed"} 
           strokeWidth="6" 
           strokeLinecap="round" 
           className="transition-all duration-300 ease-spring"

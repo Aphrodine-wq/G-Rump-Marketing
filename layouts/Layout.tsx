@@ -8,7 +8,7 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
-    <div className="min-h-screen bg-white selection:bg-purple-500 selection:text-white flex flex-col">
+    <div className="min-h-screen bg-app antialiased selection:bg-[#7c3aed] selection:text-white flex flex-col">
       <Navbar />
       <main
         id="main-content"

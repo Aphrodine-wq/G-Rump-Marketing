@@ -43,11 +43,11 @@ const PricingPage: React.FC = () => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0 }}
-      className="pt-32 pb-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto"
+      className="pt-32 pb-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto bg-app min-h-screen"
     >
       <div className="text-center mb-16">
-        <h1 className="text-5xl font-bold tracking-tight text-gray-900 mb-6">Simple, Transparent Pricing</h1>
-        <p className="text-xl text-gray-500 max-w-2xl mx-auto">
+        <h1 className="text-5xl font-bold tracking-tight text-[#1a1a2e] mb-6">Simple, Transparent Pricing</h1>
+        <p className="text-xl text-[#4a4a5a] max-w-2xl mx-auto">
           Start for free, scale as you grow. No hidden fees for compute or bandwidth.
         </p>
         
@@ -71,10 +71,10 @@ const PricingPage: React.FC = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.1 }}
                 viewport={{ once: true }}
-                className={`relative p-8 rounded-3xl border ${plan.popular ? 'border-purple-500 shadow-2xl shadow-purple-900/10 scale-105 z-10 bg-white' : 'border-gray-200 bg-white hover:border-purple-200 hover:shadow-xl transition-all'}`}
+                className={`relative p-8 rounded-2xl feature-card ${plan.popular ? 'border-[#7c3aed] shadow-2xl scale-105 z-10' : ''}`}
             >
                 {plan.popular && (
-                    <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-purple-600 text-white px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wide shadow-lg shadow-purple-500/20">
+                    <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 btn-primary px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wide shadow-lg">
                         Most Popular
                     </div>
                 )}
@@ -83,21 +83,21 @@ const PricingPage: React.FC = () => {
                     <plan.icon size={24} />
                 </div>
                 
-                <h3 className="text-2xl font-bold text-gray-900">{plan.name}</h3>
-                <p className="text-gray-500 text-sm mt-2 mb-6 min-h-[40px] leading-relaxed">{plan.description}</p>
+                <h3 className="text-2xl font-bold text-[#1a1a2e]">{plan.name}</h3>
+                <p className="text-[#4a4a5a] text-sm mt-2 mb-6 min-h-[40px] leading-relaxed">{plan.description}</p>
                 
                 <div className="flex items-baseline gap-1 mb-8">
-                    <span className="text-4xl font-bold text-gray-900">${plan.price}</span>
-                    <span className="text-gray-500">/per user/month</span>
+                    <span className="text-4xl font-bold text-[#1a1a2e]">${plan.price}</span>
+                    <span className="text-[#6b7280]">/per user/month</span>
                 </div>
                 
-                <button className={`w-full py-3 rounded-xl font-bold mb-8 transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 ${plan.popular ? 'bg-purple-600 text-white hover:bg-purple-700 shadow-lg shadow-purple-200 focus:ring-purple-500 hover:-translate-y-0.5' : 'bg-gray-100 text-gray-900 hover:bg-gray-200 focus:ring-gray-500'}`}>
+                <button className={`w-full py-3 rounded-xl font-bold mb-8 transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 ${plan.popular ? 'btn-primary focus:ring-[#7c3aed]' : 'btn-secondary focus:ring-[#7c3aed]'}`}>
                     {plan.button}
                 </button>
                 
                 <ul className="space-y-4">
                     {plan.features.map(feature => (
-                        <li key={feature} className="flex items-center gap-3 text-sm text-gray-600">
+                        <li key={feature} className="flex items-center gap-3 text-sm text-[#4a4a5a]">
                             <div className="w-5 h-5 rounded-full bg-green-50 flex items-center justify-center shrink-0">
                                 <Check size={12} className="text-green-600" />
                             </div>

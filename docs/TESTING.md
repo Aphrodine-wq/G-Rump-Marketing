@@ -2,6 +2,8 @@
 
 This document describes the testing strategy, structure, and requirements for the G-Rump project.
 
+**NVIDIA Golden Developer** — For synthetic data generation (`npm run data:synth`) and NeMo training, see [services/nemo-curator/](../services/nemo-curator/) and [services/nemo-training/](../services/nemo-training/).
+
 ## Test Structure
 
 ### Backend Tests
@@ -96,7 +98,26 @@ npm run evals
 - **Output**: `frontend/test-results/agent-evals.json` (aggregated scores). Swarm evals call `POST /api/agents/swarm`, consume the SSE stream, and judge the final summary (see `backend/tests/evals/swarmTasks.ts` and `judgeSwarm` in `judge.ts`).
 - **CI**: Agent evals run on PRs (`agent-evals-pr`) and on main (`agent-evals`); results are uploaded as artifacts and a score summary is published.
 
+## Verifying model routing at runtime
+
+The backend records which model was selected for each chat request in a Prometheus counter. You can confirm that routing (including Nemotron for long-context, RAG, swarm, and vision) is working as expected:
+
+1. Start the app (`npm run dev` from root) with `NVIDIA_NIM_API_KEY` set in `backend/.env`.
+2. Send a few chat requests that differ: e.g. a short message, a long message (e.g. paste a large block of text), and optionally a request with an image (if testing vision).
+3. Open `GET http://localhost:3000/metrics` (or your backend URL) and search for `llm_router_selections_total`.
+4. The counter has labels `provider` and `model_id`. Check that the `model_id` values match what you expect (e.g. Nemotron Super for default chat, Nemotron 3 Nano for very long context, Nemotron Vision for vision).
+
+Unit tests for the router live in `backend/tests/services/aiCoreRouter.test.ts` and assert on `route()`, `routeByTaskType()`, `getRAGModel()`, `getReasoningModel()`, and `getVisionModel()`.
+
 ## Coverage Requirements
+
+### Coverage policy
+
+Coverage thresholds apply to **included** code only. Many files are excluded so that core logic can meet high thresholds without forcing coverage on optional or infra-heavy modules.
+
+- **Intended goal:** 100% statements/branches/functions/lines on **included** core logic (backend and frontend Vitest configs may set 100% thresholds on the included set). Optional modules are excluded.
+- **Main exclusion categories:** optional integrations (e.g. Discord, Slack, Obsidian), workers, prompt templates, infra (e.g. deploy service, job queue, MCP server), optional features (e.g. codebase analysis, security-compliance), and UI-only/static assets on the frontend.
+- **Overall repo coverage:** Excluded code is not counted toward the threshold, so “overall” coverage may be lower than the threshold percentage. The CI-enforced target is “100% on included” (or the configured threshold in each vitest.config).
 
 ### Backend (CI enforced)
 

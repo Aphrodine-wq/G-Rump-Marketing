@@ -5,13 +5,8 @@ import { MicrosoftLogo } from './ui/Icons';
 
 const MicrosoftSection: React.FC = () => {
   return (
-    <div className="py-24 md:py-32 bg-[#000000] relative overflow-hidden">
-      {/* Microsoft Blue/Cyan Glows */}
-      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#00a4ef] opacity-10 blur-[150px] rounded-full pointer-events-none"></div>
-      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#7fba00] opacity-5 blur-[120px] rounded-full pointer-events-none"></div>
-      
-      {/* Grid Pattern */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#00a4ef10_1px,transparent_1px),linear-gradient(to_bottom,#00a4ef10_1px,transparent_1px)] bg-[size:40px_40px] opacity-20 pointer-events-none"></div>
+    <div className="py-24 md:py-32 bg-app relative overflow-hidden">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,#e5e7eb_1px,transparent_0)] bg-[size:40px_40px] opacity-30 pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="flex flex-col lg:flex-row items-center gap-16">
@@ -22,7 +17,7 @@ const MicrosoftSection: React.FC = () => {
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#00a4ef]/10 border border-[#00a4ef]/20 text-[#00a4ef] text-xs font-bold uppercase tracking-widest mb-6"
+              className="inline-flex items-center gap-2 px-3 py-1 rounded-full badge text-xs font-bold uppercase tracking-widest mb-6"
             >
               <MicrosoftLogo className="w-3 h-3" />
               Microsoft Azure AI
@@ -32,9 +27,9 @@ const MicrosoftSection: React.FC = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-4xl md:text-5xl font-bold text-white mb-6 tracking-tight leading-tight"
+              className="text-4xl md:text-5xl font-bold text-[#1a1a2e] mb-6 tracking-tight leading-tight"
             >
-              Infrastructure: <span className="text-[#00a4ef]">Agent Lightning</span>
+              Infrastructure: <span className="text-[#7c3aed]">Agent Lightning</span>
             </motion.h2>
             
             <motion.p 
@@ -42,7 +37,7 @@ const MicrosoftSection: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className="text-gray-400 text-lg mb-8 leading-relaxed font-light"
+              className="text-[#4a4a5a] text-lg mb-8 leading-relaxed font-light"
             >
               Powered by Microsoft's cutting-edge Agent Lightning framework. G-Agent leverages Azure's global infrastructure for sub-millisecond latency and enterprise-grade security compliance.
             </motion.p>
@@ -60,14 +55,14 @@ const MicrosoftSection: React.FC = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.2 + (i * 0.1) }}
-                  className="bg-white/5 border border-white/10 rounded-xl p-4 hover:border-[#00a4ef]/50 transition-colors group"
+                  className="feature-card rounded-xl p-4 group"
                 >
                   <div className="flex items-center gap-3 mb-2">
-                    <stat.icon size={18} className="text-[#00a4ef]" />
-                    <span className="text-gray-400 text-xs uppercase tracking-wide">{stat.label}</span>
+                    <stat.icon size={18} className="text-[#7c3aed]" />
+                    <span className="text-[#6b7280] text-xs uppercase tracking-wide">{stat.label}</span>
                   </div>
-                  <div className="text-2xl font-bold text-white group-hover:text-[#00a4ef] transition-colors">{stat.value}</div>
-                  <div className="text-xs text-gray-500">{stat.sub}</div>
+                  <div className="text-2xl font-bold text-[#1a1a2e] group-hover:text-[#7c3aed] transition-colors">{stat.value}</div>
+                  <div className="text-xs text-[#6b7280]">{stat.sub}</div>
                 </motion.div>
               ))}
             </div>

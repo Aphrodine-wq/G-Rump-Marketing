@@ -2,13 +2,13 @@
 
 ## Overview
 
-G-Rump features **G-Agent**, an autonomous AI agent that handles comprehensive code generation through specialized capabilities.
+G-Rump features **G-Agent**, an autonomous AI agent that handles comprehensive code generation through specialized capabilities. G-Agent uses **NVIDIA NIM (Nemotron)** for inference; see [NVIDIA_GOLDEN_DEVELOPER.md](./NVIDIA_GOLDEN_DEVELOPER.md) for the full NVIDIA stack.
 
 **G-Agent orchestration** ([agentOrchestrator](../backend/src/services/agentOrchestrator.ts)) — PRD + architecture → G-Agent code generation with capabilities for architecture, frontend, backend, DevOps, testing, and documentation. Used by Ship and Codegen flows. See [backend/src/routes/codegen.ts](../backend/src/routes/codegen.ts) and [shipModeService](../backend/src/services/shipModeService.ts).
 
 **G-Agent Quality Assurance** — G-Agent includes built-in quality analysis and auto-fix capabilities to ensure generated code meets standards.
 
-Evals: run `npm run evals` in the backend (requires a running backend at `EVAL_BASE_URL`); results in `frontend/test-results/g-agent-evals.json`. CI runs G-Agent evals on PRs and main; see [RUNBOOK.md](RUNBOOK.md) for operations.
+Evals: run `npm run evals` in the backend (requires a running backend at `EVAL_BASE_URL`); results in `frontend/test-results/g-agent-evals.json`. CI runs G-Agent evals on PRs and main; see [PRODUCTION.md](./PRODUCTION.md) for operations.
 
 The G-Agent codegen pipeline includes design mode documentation generation and automatic quality assurance.
 
@@ -197,6 +197,8 @@ The Intent Compiler is a two-stage system that parses natural language and enric
 - **rust-first** (default): Parse via Rust CLI (or WASM), fallback to LLM on failure, then enrich via LLM Gateway.
 - **hybrid**: Same as rust-first, but when `ambiguity_analysis.score` exceeds `INTENT_AMBIGUITY_THRESHOLD` (default 0.6), an extra LLM step resolves the ambiguity.
 - **llm-first**: Extract structured intent via LLM first (no Rust parse), then enrich. Use for very unstructured prompts.
+
+Intent is also used to guide RAG retrieval (query expansion from features, tech stack, and data flows) when fetching document context for architecture, spec, plan, and chat; and RAG can augment intent enrichment by injecting knowledge-base excerpts into the enrichment prompt. See [INTENT_RAG_FUSION.md](./INTENT_RAG_FUSION.md).
 
 ### Stage 1: Rust Parser
 - Parses raw natural language input

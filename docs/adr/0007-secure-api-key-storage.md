@@ -80,7 +80,7 @@ Implement OS keychain integration as the primary secure storage mechanism for AP
 
 - [Secure Storage Implementation](../packages/cli/src/utils/secureStorage.ts)
 - [CLI Secure Commands](../packages/cli/src/commands/secure.ts)
-- [Security Baseline](./docs/SECURITY_BASELINE.md)
+- [Security](./docs/SECURITY.md)
 - [OWASP Secrets Management](https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html)
 
 ---

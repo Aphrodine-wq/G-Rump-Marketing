@@ -1,28 +1,57 @@
-# How It Works: Complete System Guide
+# How It Works
 
-## 10,000-Foot View
+> **Version:** 2.1.0 | **Last Updated:** February 2026
 
-**What G-Rump does:** You describe an app in natural language. G-Rump produces architecture diagrams, specs, PRDs, and code. You can chat with an AI assistant that can read/write files, run commands, and use git.
+This guide explains how G-Rump processes requests, from user input to generated code. For system architecture details, see [ARCHITECTURE.md](./ARCHITECTURE.md). For the agent system, see [AGENT_SYSTEM.md](./AGENT_SYSTEM.md). For the NVIDIA ecosystem (Nemotron, NIM, NGC, NeMo), see [NVIDIA_GOLDEN_DEVELOPER.md](./NVIDIA_GOLDEN_DEVELOPER.md).
+
+## The Big Picture
+
+**What G-Rump does:** You describe an app in natural language. G-Rump produces architecture diagrams, specs, PRDs, and code. You can also chat with an AI assistant that can read/write files, run commands, and use git.
 
 **Three main flows:**
-1. **Chat** – Conversational AI with tools (file read/write, bash, git). Design mode for diagrams; Code mode for coding help.
-2. **Ship** – One-shot: describe a project → get design → spec → plan → generated code. Runs as a background job.
-3. **Codegen** – Feed in PRD + architecture → multi-agent pipeline produces code. Can run as a job or inline.
 
-**Architecture (one sentence):** A Svelte frontend (desktop or web) talks to a single Express backend. The backend calls LLMs (Claude, OpenRouter, NIM) and executes tools in the workspace. Ship and Codegen use a job queue (SQLite or Redis); the frontend polls status or uses SSE.
+1. **Chat** — Conversational AI with tools (file read/write, bash, git). Design mode for diagrams; Code mode for coding assistance.
+2. **Ship** — One-shot workflow: describe a project → design → spec → plan → generated code. Runs as a background job.
+3. **Codegen** — Feed in PRD + architecture → multi-agent pipeline produces code. Can run as a job or inline.
 
-**Key entry points:** `backend/src/index.ts` (API server), `frontend/src/App.svelte` (UI root), `backend/src/routes/chat.ts` (chat API), `backend/src/routes/ship.ts` (ship API).
+**Architecture (one sentence):** A Svelte frontend (desktop or web) talks to a single Express backend. The backend calls LLMs (NVIDIA NIM/Nemotron, OpenRouter) and executes tools in the workspace. Ship and Codegen use a job queue (SQLite or Redis); the frontend polls status or uses SSE. **NVIDIA Golden Developer**: Full Nemotron + NIM stack, NGC-ready deployment, NeMo Curator synthetic data, NeMo Framework fine-tuning, and NIM-aligned observability.
+
+**Key entry points:**
+- `backend/src/index.ts` — API server bootstrap
+- `frontend/src/App.svelte` — UI root
+- `backend/src/routes/chat.ts` — Chat API
+- `backend/src/routes/ship.ts` — Ship API
 
 ---
 
-## System Overview
+## Multi-Agent Orchestration
 
-G-Rump is an AI-powered development assistant that transforms natural language descriptions into complete, production-ready applications. **G-Rump is multi-agent–first:** two complementary orchestration paths run specialized AI agents:
+G-Rump is **multi-agent–first**. Two complementary orchestration paths run specialized AI agents:
 
-1. **Codegen pipeline** ([agentOrchestrator](../backend/src/services/agentOrchestrator.ts)) — PRD + architecture → multi-agent code generation (Architect, Frontend, Backend, DevOps, Test, Docs). Wired via [codegen](../backend/src/routes/codegen.ts) and [shipModeService](../backend/src/services/shipModeService.ts).
-2. **Kimi swarm** ([swarmService](../backend/src/services/swarmService.ts), `POST /api/agents/swarm`) — User prompt → Kimi decomposes into subtasks → specialist agents (arch, frontend, backend, devops, test, docs, ux, security, perf, a11y, data, review) run with dependency ordering and concurrency; final summary streamed via SSE.
+### 1. Codegen Pipeline
 
-Agent quality is measured via offline evals: run `npm run evals` in the backend (see [TESTING.md](TESTING.md)); results are written to `frontend/test-results/agent-evals.json` and CI runs evals on PRs and main. For high-level architecture and full system diagram, see [ARCHITECTURE.md](ARCHITECTURE.md) and [UNIFIED_ARCHITECTURE.md](UNIFIED_ARCHITECTURE.md).
+The [agentOrchestrator](../backend/src/services/agentOrchestrator.ts) takes PRD + architecture and coordinates:
+- Architect, Frontend, Backend, DevOps, Test, Docs agents
+- Wired via [codegen routes](../backend/src/routes/codegen.ts) and [shipModeService](../backend/src/services/shipModeService.ts)
+
+### 2. Kimi Swarm
+
+The [swarmService](../backend/src/services/swarmService.ts) (`POST /api/agents/swarm`) provides:
+- Kimi decomposes prompts into subtasks
+- Specialist agents (arch, frontend, backend, devops, test, docs, ux, security, perf, a11y, data, review)
+- Dependency ordering and concurrency
+- Final summary streamed via SSE
+
+### Agent Quality
+
+Agent quality is measured via offline evals:
+
+```bash
+cd backend
+npm run evals  # Requires running backend at EVAL_BASE_URL
+```
+
+Results are written to `frontend/test-results/agent-evals.json`. CI runs evals on PRs and main.
 
 ---
 
@@ -71,6 +100,10 @@ Every API request passes through this stack (see [backend/src/index.ts](../backe
 
 - **Flow**: `POST /api/ship/start` → [validateShipRequest](../backend/src/middleware/validator.ts) + [shipRoutes](../backend/src/routes/ship.ts) → [shipModeService](../backend/src/services/shipModeService.ts) `startShipMode`. Then `POST /api/ship/:sessionId/execute` enqueues a job ([jobQueue](../backend/src/services/jobQueue.ts)); worker runs design → spec → plan → code phases. Session status via `GET /api/ship/:sessionId`.
 - **Body for start**: `projectDescription`, optional `preferences`. Validation: projectDescription length and suspicious patterns.
+
+### Intent-RAG Fusion
+
+When RAG context is used (architecture, spec, plan, chat with `RAG_CONTEXT_ENABLED`, ship), the backend uses [Intent-RAG Fusion (IRF)](./INTENT_RAG_FUSION.md): it parses the user query or project description with the Intent Compiler (Rust or fallback), expands the search query with features, tech stack, and data flows, then retrieves and optionally reranks chunks. When enriching intent via LLM, the service injects RAG-retrieved excerpts into the enrichment prompt so extracted intent aligns with the knowledge base. See [INTENT_RAG_FUSION.md](./INTENT_RAG_FUSION.md) for configuration (`RAG_INTENT_GUIDED`, `INTENT_RAG_AUGMENT_ENRICH`) and how to disable.
 
 ### Request path diagram
 
@@ -565,6 +598,7 @@ WRunner provides automatic quality assurance:
 
 ## Next Steps
 
-- Read [AGENT_SYSTEM.md](AGENT_SYSTEM.md) for detailed agent documentation
-- Read [INTENT_COMPILER.md](INTENT_COMPILER.md) for intent compiler details
-- Read [AI_WORKFLOWS.md](AI_WORKFLOWS.md) for workflow patterns
+- **[AGENT_SYSTEM.md](./AGENT_SYSTEM.md)** — Detailed agent documentation
+- **[ARCHITECTURE.md](./ARCHITECTURE.md)** — System architecture and intent compiler details
+- **[API.md](./API.md)** — Complete API reference
+- **[TROUBLESHOOTING.md](./TROUBLESHOOTING.md)** — Common issues and solutions

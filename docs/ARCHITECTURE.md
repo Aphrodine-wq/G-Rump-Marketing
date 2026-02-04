@@ -1,274 +1,618 @@
 # G-Rump Architecture
 
-> **Version:** 2.1.0 | **Last Updated:** January 2026
+> **Version:** 2.1.0 | **Last Updated:** February 2026
 
-For request pipeline, middleware order, and chat/codegen/ship flow, see [HOW_IT_WORKS.md](HOW_IT_WORKS.md). For the full system overview, see [OVERVIEW.md](OVERVIEW.md).
+Comprehensive system architecture documentation for the G-Rump platform.
+
+---
+
+## Table of Contents
+
+- [Philosophy](#philosophy)
+- [System Overview](#system-overview)
+- [Tech Stack](#tech-stack)
+- [Frontend Architecture](#frontend-architecture)
+- [Backend Architecture](#backend-architecture)
+- [Intent Compiler](#intent-compiler)
+- [Data Flow](#data-flow)
+- [Caching Architecture](#caching-architecture)
+- [Security Model](#security-model)
+- [Deployment Architecture](#deployment-architecture)
+- [Performance Optimizations](#performance-optimizations)
+
+---
+
+## Philosophy: Architecture-as-Code
+
+G-Rump follows an **Architecture-as-Code** philosophy. Rather than treating architecture as static documentation that drifts from reality, G-Rump embeds architectural decisions directly into the codebase and uses AI to enforce them during code generation.
+
+### Core Principles
+
+1. **Natural language to production code** - Describe what you want, get deployable software
+2. **Multi-agent orchestration** - Specialized AI agents handle different concerns
+3. **Quality assurance built-in** - Automatic analysis and fixes for generated code
+4. **Performance-first** - Rust compiler, SWC builds, SIMD acceleration, multi-tier caching
+
+---
 
 ## System Overview
 
-G-Rump is a high-performance AI development platform (**Architecture-as-Code**) that combines:
-- **Svelte 5** frontend for the UI (web and desktop)
-- **Desktop runtime**: Electron 28
-- **Node.js/Express 5** backend for API services (SWC-compiled)
-- **Rust** intent compiler for natural language processing (parallel + SIMD + WASM)
-- **Multi-provider AI**: NVIDIA NIM (Kimi K2.5), OpenRouter, Groq, Together AI, Ollama
-- **Multi-tier cache** (L1 LRU/L2 Redis/L3 Disk), **worker pool**, **model router** (cost-aware), **rate limiting**, **Supabase** auth, **Stripe** billing, **webhooks**, **SSE** streaming, **BullMQ** job queue
+```mermaid
+graph TB
+    subgraph "Client Layer"
+        CLI[CLI Tool]
+        Desktop[Desktop App<br/>Electron + Svelte 5]
+        VSCode[VS Code Extension]
+        Web[Web Browser]
+    end
 
-For a file-level map of the codebase, see [CODEBASE.md](./CODEBASE.md).
+    subgraph "API Gateway Layer"
+        Express[Express 5 API Server]
+        Middleware[Middleware Stack]
+        Router[API Router]
+    end
 
-## Architecture Diagram
+    subgraph "Core Services"
+        Intent[Intent Compiler<br/>Rust/WASM]
+        LLMRouter[LLM Gateway]
+        Cache[3-Tier Cache]
+        RAG[RAG Engine]
+        Agents[G-Agent Orchestrator]
+    end
 
+    subgraph "AI Providers"
+        NIM[NVIDIA NIM]
+        Kimi[Kimi K2.5]
+        OpenRouter[OpenRouter]
+        Groq[Groq]
+        Together[Together AI]
+        Ollama[Ollama Local]
+    end
+
+    subgraph "Data Layer"
+        SQLite[(SQLite<br/>Dev)]
+        Postgres[(PostgreSQL<br/>Prod)]
+        Redis[(Redis<br/>Cache/Queue)]
+        Pinecone[(Pinecone<br/>Vector DB)]
+    end
+
+    CLI --> Express
+    Desktop --> Express
+    VSCode --> Express
+    Web --> Express
+
+    Express --> Middleware
+    Middleware --> Router
+    Router --> Intent
+    Router --> LLMRouter
+    Router --> Cache
+    Router --> RAG
+    Router --> Agents
+
+    LLMRouter --> NIM
+    LLMRouter --> Kimi
+    LLMRouter --> OpenRouter
+    LLMRouter --> Groq
+    LLMRouter --> Together
+    LLMRouter --> Ollama
+
+    Agents --> SQLite
+    Agents --> Postgres
+    Cache --> Redis
+    RAG --> Pinecone
 ```
-┌─────────────────────────────────────────────────────────────────────────────┐
-│                    G-RUMP PLATFORM ARCHITECTURE                              │
-├─────────────────────────────────────────────────────────────────────────────┤
-│                                                                              │
-│  ┌────────────────────────────────────────────────────────────────────────┐ │
-│  │                         CLIENTS                                        │ │
-│  │  Desktop (Electron)  │  Web App  │  VS Code  │  CLI  │  Bots  │ Docker │ │
-│  └────────────────────────────────────────────────────────────────────────┘ │
-│                                     │                                        │
-│                                     ▼                                        │
-│  ┌────────────────────────────────────────────────────────────────────────┐ │
-│  │                 SVELTE 5 FRONTEND (5173)                               │ │
-│  │  Chat Interface │ Diagram Renderer │ Workflow Phase Bar │ Tool Cards   │ │
-│  └────────────────────────────────────────────────────────────────────────┘ │
-│                                     │                                        │
-│                                     ▼                                        │
-│  ┌────────────────────────────────────────────────────────────────────────┐ │
-│  │                 EXPRESS 5 BACKEND (3000)                               │ │
-│  │  /api/chat │ /api/ship │ /api/codegen │ /api/architecture │ /api/prd  │ │
-  │  │  G-Agent Orchestrator │ LLM Gateway │ Tool Execution │ Job Queue        │ │
-│  └────────────────────────────────────────────────────────────────────────┘ │
-│              │                    │                    │                     │
-│              ▼                    ▼                    ▼                     │
-│  ┌──────────────────┐  ┌──────────────────┐  ┌──────────────────────────┐  │
-│  │ Rust Intent      │  │ LLM Providers    │  │ Data Layer               │  │
-│  │ Compiler         │  │ ─────────────    │  │ ─────────                │  │
-│  │ (CLI + WASM)     │  │ NVIDIA NIM       │  │ SQLite/PostgreSQL        │  │
-│  │                  │  │ Kimi K2.5        │  │ Redis (cache/queue)      │  │
-│  │                  │  │ OpenRouter       │  │ Supabase (auth)          │  │
-│  │                  │  │ Groq, Together   │  │ Stripe (billing)         │  │
-│  │                  │  │ Ollama (local)   │  │ Pinecone (RAG)           │  │
-│  └──────────────────┘  └──────────────────┘  └──────────────────────────┘  │
-└─────────────────────────────────────────────────────────────────────────────┘
-```
+
+---
 
 ## Tech Stack
 
-| Layer | Technologies |
-|:-----:|:------------:|
-| **Desktop** | Electron 28, Svelte 5, Vite 5, TailwindCSS 3.4 |
-| **Frontend** | TypeScript 5.3, Mermaid.js, Shiki, Lucide Icons, DOMPurify |
-| **Backend** | Node.js 20+, Express 5, TypeScript, SWC, Pino |
-| **Compiler** | Rust 1.77+, rayon, SIMD (AVX2/AVX-512), WASM |
-| **AI/ML** | NVIDIA NIM, Kimi K2.5, OpenRouter, Groq, Together AI, Ollama |
-| **Database** | SQLite/better-sqlite3 (dev), Supabase/PostgreSQL (prod) |
-| **Queue** | BullMQ, Redis, ioredis |
-| **Vector DB** | Pinecone (RAG) |
-| **Infrastructure** | Docker, Kubernetes, Vercel |
-| **Monitoring** | Prometheus, OpenTelemetry, Grafana, Pino |
-| **Testing** | Vitest, Playwright, k6 |
-| **Payments** | Stripe |
+| Layer | Technologies | Purpose |
+|-------|--------------|---------|
+| **Desktop** | Electron 28, Svelte 5, Vite 5, TailwindCSS 3.4 | Cross-platform desktop app |
+| **Frontend** | TypeScript 5.3, Mermaid.js, Shiki, Lucide | Web UI components |
+| **Backend** | Node.js 20+, Express 5, TypeScript, SWC, Pino | API server |
+| **Compiler** | Rust 1.77+, rayon, SIMD (AVX2/AVX-512), WASM | Intent parsing |
+| **AI/ML** | NVIDIA NIM, Kimi K2.5, OpenRouter, Groq, Together, Ollama | LLM inference |
+| **Database** | SQLite (dev), Supabase/PostgreSQL (prod) | Data persistence |
+| **Queue** | BullMQ, Redis, ioredis | Job processing |
+| **Vector DB** | Pinecone | RAG document storage |
+| **Infrastructure** | Docker, Kubernetes, NGC (GCP/AWS) | Deployment |
+| **Observability** | Prometheus, OpenTelemetry, Grafana, Pino | Monitoring |
+| **Testing** | Vitest, Playwright, k6 | Test automation |
+| **Payments** | Stripe | Billing |
 
-## Component Architecture
+---
 
-### Frontend (Svelte 5)
+## Frontend Architecture
 
-**Stores:**
-- `sessionsStore` - Session management
-- `toastStore` - Toast notifications
-- `connectionStatusStore` - Backend connection status
-- `authStore` - Authentication state
-- `clarificationStore` - Clarification modal state
-- `workflowStore` - 3-phase workflow state (Architecture → Spec → Code)
-- `chatModeStore` - Design vs Code mode (tool-enabled chat)
-- `workspaceStore` - Workspace root for file/bash tools
-- `codeSessionsStore` - Save/load for Code-mode sessions
-- `preferencesStore` - User preferences
+The frontend is a Svelte 5 application packaged as an Electron desktop application.
 
-**Components:**
-- `ChatInterface` - Main chat UI (Design + Code modes)
-- `DiagramRenderer` - Mermaid diagram rendering
-- `WorkflowPhaseBar` - Workflow progress indicator
-- `WorkflowActions` - Phase transition buttons
-- `ToolCallCard` / `ToolResultCard` - Tool use display in Code mode
-- `ModelPicker` - LLM model selection
-- `RAGScreen` - Document-aware AI interface
-
-### Backend (Node.js/Express 5)
-
-**Key entry point:** `backend/src/index.ts` – mounts routes, middleware (auth, rate limit, timeout, metrics), DB, job worker, optional Redis.
-
-**Services:**
-- `claudeServiceWithTools` - Tool-enabled chat (bash, file read/write/edit, list_dir); streams via LLM gateway
-- `llmGateway` - Unified streaming for OpenRouter, NIM, Zhipu (model router from `@grump/ai-core`)
-- `toolExecutionService` - Tool execution (workspace-scoped); path policy via `pathPolicyService`
-- `intentCompilerService` - Intent parsing via Rust CLI or WASM, with LLM enrichment
-- `architectureService`, `prdGeneratorService`, `codeGeneratorService` - Architecture, PRD, codegen
-- `agentOrchestrator` - G-Agent coordination and quality assurance
-- `tieredCache`, `workerPool`, `batchProcessor`, `nimAccelerator` - Cache, workers, batching, NIM
-- `ragService` - RAG document indexing and query
-
-**Routes:** See [docs/API.md](./API.md). Core: `/api/chat/stream`, `/api/ship`, `/api/codegen`, `/api/plan`, `/api/spec`, `/api/diagram`, `/api/intent`, `/api/architecture`, `/api/prd`, `/api/rag`, `/api/security/*`, `/api/webhooks`, `/api/events`, `/health`, `/metrics`.
-
-### Intent Compiler (Rust)
-
-CLI tool that:
-- Parses natural language input
-- Extracts actors, features, data flows, tech stack hints
-- Returns structured JSON
-- Optional WASM mode for browser/Node.js
-
-## Resource Bundling
-
-### Electron Production Build
-
-1. **Frontend Bundle**
-   - Built with Vite: `npm run build`
-   - Output: `frontend/dist/` (static files)
-
-2. **Electron Packaging**
-   - Uses electron-builder
-   - Creates portable executable
-   - Output: `frontend/electron-dist/G-Rump.exe`
-
-3. **Backend** (separate)
-   - Run from source or bundle separately
-   - Electron auto-starts backend from `../backend/dist/`
-
-### Electron Resource Extraction Flow
+### Component Hierarchy
 
 ```
-App Launch
-    │
-    ├─▶ Load splash screen
-    │
-    ├─▶ Look for backend at ../backend/dist/index.js
-    │
-    ├─▶ Start backend process (if found)
-    │
-    ├─▶ Load frontend from localhost:5173 (dev) or dist/ (prod)
-    │
-    └─▶ Close splash, show main window
+App.svelte
+├── ChatInterface.svelte
+│   ├── MessageList.svelte
+│   ├── MessageInput.svelte
+│   ├── ToolCallCard.svelte
+│   └── ToolResultCard.svelte
+├── DiagramRenderer.svelte
+│   └── MermaidDiagram.svelte
+├── WorkflowPhaseBar.svelte
+├── ModelPicker.svelte
+├── RAGScreen.svelte
+└── SettingsPanel.svelte
 ```
+
+### State Management (Svelte Stores)
+
+| Store | Purpose | Persistence |
+|-------|---------|-------------|
+| `sessionsStore` | Chat sessions and history | localStorage |
+| `workflowStore` | 3-phase workflow state | session |
+| `chatModeStore` | Design mode vs Code mode | localStorage |
+| `workspaceStore` | Current workspace root | localStorage |
+| `authStore` | Authentication state | localStorage |
+| `preferencesStore` | User preferences | localStorage |
+| `connectionStatusStore` | Backend connection | memory |
+
+### Electron Integration
+
+```javascript
+// Main process features
+const createWindow = () => {
+  const mainWindow = new BrowserWindow({
+    width: 1400,
+    height: 900,
+    webPreferences: {
+      contextIsolation: true,  // Security: Isolate renderer
+      nodeIntegration: false,   // Security: No direct Node access
+      preload: path.join(__dirname, 'preload.cjs')
+    }
+  });
+};
+
+// System tray
+const tray = new Tray(iconPath);
+tray.setContextMenu(Menu.buildFromTemplate([
+  { label: 'New Chat', click: () => createNewChat() },
+  { label: 'Settings', click: () => openSettings() },
+  { type: 'separator' },
+  { label: 'Quit', click: () => app.quit() }
+]));
+
+// Global shortcut
+globalShortcut.register('CommandOrControl+Shift+G', () => {
+  mainWindow.show();
+});
+```
+
+---
+
+## Backend Architecture
+
+### Request Pipeline
+
+Every API request flows through this middleware stack:
+
+```
+Request
+  │
+  ▼
+┌─────────────────┐
+│ CORS            │ Validates allowed origins
+└────────┬────────┘
+         ▼
+┌─────────────────┐
+│ Helmet          │ Security headers (CSP)
+└────────┬────────┘
+         ▼
+┌─────────────────┐
+│ Compression     │ Gzip/Brotli responses
+└────────┬────────┘
+         ▼
+┌─────────────────┐
+│ JSON Parser     │ Parse request body
+└────────┬────────┘
+         ▼
+┌─────────────────┐
+│ Request Timeout │ Enforce route timeouts
+└────────┬────────┘
+         ▼
+┌─────────────────┐
+│ Rate Limiting   │ Per-endpoint limits
+└────────┬────────┘
+         ▼
+┌─────────────────┐
+│ Agent Governance│ Block automated abuse
+└────────┬────────┘
+         ▼
+┌─────────────────┐
+│ Authentication  │ JWT validation (if required)
+└────────┬────────┘
+         ▼
+┌─────────────────┐
+│ Route Handler   │ Process request
+└─────────────────┘
+```
+
+### Core Services
+
+```
+services/
+├── claudeServiceWithTools.ts    # Tool-enabled chat
+├── llmGateway.ts                 # Unified LLM interface
+├── modelRouter.ts                # Cost-aware routing
+├── shipModeService.ts            # SHIP workflow orchestration
+├── agentOrchestrator.ts          # G-Agent coordination
+├── tieredCache.ts                # L1/L2/L3 caching
+├── ragService.ts                 # Document retrieval
+├── intentCompilerService.ts      # NL → JSON parsing
+├── toolExecutionService.ts       # Sandboxed tool execution
+└── pathPolicyService.ts          # Security path validation
+```
+
+---
+
+## Intent Compiler
+
+The Intent Compiler is a Rust-based tool that parses natural language into structured JSON.
+
+### Processing Modes
+
+| Mode | Description | Use Case |
+|------|-------------|----------|
+| `rust-first` | Parse with Rust, fall back to LLM | Default, fastest |
+| `hybrid` | Rust + LLM disambiguation | Complex inputs |
+| `llm-first` | LLM-only extraction | Unstructured input |
+
+### Pipeline
+
+```
+User Input
+    │
+    ▼
+┌─────────────────┐     ┌─────────────────┐
+│  Rust Parser    │────▶│ Structured JSON │
+│  (~8ms)         │     │ (actors,        │
+└─────────────────┘     │  features,      │
+                        │  data flows)    │
+                        └────────┬────────┘
+                                 ▼
+                        ┌─────────────────┐
+                        │ LLM Enrichment  │
+                        │ (patterns,      │
+                        │  architecture   │
+                        │  hints)         │
+                        └────────┬────────┘
+                                 ▼
+                        ┌─────────────────┐
+                        │ Code-Optimized  │
+                        │ Intent          │
+                        └─────────────────┘
+```
+
+### Performance
+
+| Operation | LLM-Only | Rust + LLM | Improvement |
+|-----------|----------|------------|-------------|
+| Parsing | 120ms | 8ms | **15x faster** |
+
+---
 
 ## Data Flow
 
-### Message Flow
+### SHIP Workflow Flow
 
-**Design mode** (diagram-first):
-```
-User Input → ChatInterface → /api/generate-diagram-stream
-    ├─▶ Intent Compiler (if needed) → grump-intent.exe
-    ├─▶ LLM API → Stream (text + Mermaid)
-    └─▶ ChatInterface (updates in real-time)
-```
+```mermaid
+sequenceDiagram
+    participant User
+    participant Frontend
+    participant Backend
+    participant Compiler
+    participant LLM
+    participant Agents
 
-**Code mode** (Claude-Code-style, tool-enabled):
-```
-User Input → ChatInterface → POST /api/chat/stream
-    Body: { messages, workspaceRoot?, planMode?, agentProfile? }
-    ├─▶ LLM API (tools: bash, file_read, file_write, file_edit, list_directory)
-    ├─▶ Tool execution (workspace-scoped)
-    └─▶ SSE: text, tool_call, tool_result, done → ChatInterface
-```
+    User->>Frontend: Enter project description
+    Frontend->>Backend: POST /api/ship/start
+    Backend->>Compiler: Parse intent
+    Compiler-->>Backend: Structured intent
+    Backend-->>Frontend: sessionId
 
-### Workflow Flow
+    User->>Frontend: Click "Execute"
+    Frontend->>Backend: POST /execute/stream
 
-```
-1. Architecture Phase
-   User Input → Architecture Service → Mermaid Diagram
-   
-2. PRD Phase
-   Architecture → PRD Generator → PRD Document
-   
-3. Code Generation Phase
-   PRD → G-Agent Orchestrator → Generated Code (ZIP)
-   ├─▶ G-Agent Architecture (validation & planning)
-   ├─▶ G-Agent Frontend (UI components)
-   ├─▶ G-Agent Backend (APIs & services)
-   ├─▶ G-Agent DevOps (Docker & CI/CD)
-   ├─▶ G-Agent Testing (test suites)
-   ├─▶ G-Agent Documentation (documentation)
-   ├─▶ G-Agent Security (security scanning)
-   ├─▶ G-Agent i18n (internationalization)
-   ├─▶ G-Agent Work Report Generation (design mode)
-   └─▶ G-Agent Quality Analysis (quality assurance & auto-fixes)
+    Backend->>LLM: Generate architecture
+    LLM-->>Backend: Mermaid diagram
+    Backend-->>Frontend: SSE: phase_complete (design)
+
+    Backend->>LLM: Generate PRD
+    LLM-->>Backend: PRD document
+    Backend-->>Frontend: SSE: phase_complete (spec)
+
+    Backend->>LLM: Generate plan
+    LLM-->>Backend: Task list
+    Backend-->>Frontend: SSE: phase_complete (plan)
+
+    Backend->>Agents: Execute code generation
+    Agents-->>Backend: Generated files
+    Backend-->>Frontend: SSE: phase_complete (code)
+    Backend-->>Frontend: SSE: done
 ```
 
-### Code Mode (Tool-Enabled Chat)
+### Chat Mode Flow
 
-- **Workspace**: User sets a project root; all file/bash tools run relative to it.
-- **Plan mode**: Optional "Plan only" toggle; model outputs a plan, no tool use.
-- **G-Agent profiles**: General, Router, Frontend, Backend, DevOps, Test (specialist system prompts).
-- **Sessions**: Save/load Code-mode conversations (messages, workspace, agent profile).
+```mermaid
+sequenceDiagram
+    participant User
+    participant Frontend
+    participant Backend
+    participant Router
+    participant LLM
+    participant Tools
 
-## Environment Configuration
+    User->>Frontend: Send message
+    Frontend->>Backend: POST /api/chat/stream
 
-### Development
+    Backend->>Router: Select optimal model
+    Router-->>Backend: Provider + Model
 
-- Backend runs as Node.js process with tsx
-- Intent compiler from `intent-compiler/target/release/`
-- Frontend dev server on port 5173
+    Backend->>LLM: Stream request with tools
+    loop Streaming
+        LLM-->>Backend: Token chunk
+        Backend-->>Frontend: SSE: message chunk
+    end
 
-### Production
+    alt Tool Call
+        LLM-->>Backend: tool_call event
+        Backend->>Tools: Execute in sandbox
+        Tools-->>Backend: Result
+        Backend-->>Frontend: SSE: tool_result
+        Backend->>LLM: Continue with result
+    end
 
-- Backend runs as Node.js process (Electron or standalone)
-- Intent compiler from project root (Electron) or system path
-- Frontend bundled in desktop app or served from CDN
+    LLM-->>Backend: Stream complete
+    Backend-->>Frontend: SSE: done
+```
 
-## Security
+---
 
-- Electron uses `contextIsolation: true` and `nodeIntegration: false` via BrowserWindow options
-- Helmet middleware on backend
-- API keys and secrets in `.env` (see [PRODUCTION_CHECKLIST](./PRODUCTION_CHECKLIST.md))
-- Path validation for security scan (`workspacePath` under `SECURITY_SCAN_ROOT` or cwd)
-- Outbound webhook URLs: https-only in production
-- Auth: Supabase JWT; optional auth for API (`REQUIRE_AUTH_FOR_API`); webhook secrets required in prod
-- Content Security Policy (CSP) with report-uri
-- Rate limiting via express-rate-limit with optional Redis backend
+## Caching Architecture
 
-## Performance Considerations
+G-Rump uses a three-tier caching system:
 
-- Backend build: SWC (fast); intent compiler: Rust with LTO/SIMD
-- Tiered cache (L1/L2/L3), worker pool, model router (cost-aware), NIM batching
-- See [docs/PERFORMANCE_GUIDE.md](./PERFORMANCE_GUIDE.md)
+```
+┌─────────────────────────────────────────────────────────────┐
+│                      CACHE HIERARCHY                        │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  ┌─────────────┐    ┌─────────────┐    ┌─────────────┐     │
+│  │    L1       │───▶│    L2       │───▶│    L3       │     │
+│  │  Memory     │    │   Redis     │    │    Disk     │     │
+│  │  (LRU)      │◀───│             │◀───│             │     │
+│  └─────────────┘    └─────────────┘    └─────────────┘     │
+│       TTL: 5 min         TTL: 1 hour       TTL: 24 hours    │
+│       Latency: <1ms      Latency: ~2ms     Latency: ~10ms   │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+```
 
-### Performance Metrics
+### Cache Tiers
+
+| Tier | Storage | TTL | Use Case |
+|------|---------|-----|----------|
+| **L1** | In-memory LRU | 5 min | Hot data, sub-millisecond access |
+| **L2** | Redis | 1 hour | Shared across instances |
+| **L3** | Disk (compressed) | 24 hours | Persistent fallback |
+
+### Cache Key Strategy
+
+Cache keys are content-addressed using SHA-256 hashes:
+
+```typescript
+function generateCacheKey(request: Request): string {
+  const content = JSON.stringify({
+    prompt: request.prompt,
+    model: request.modelId,
+    temperature: request.temperature
+  });
+  return crypto.createHash('sha256').update(content).digest('hex');
+}
+```
+
+### Cost-Aware Eviction
+
+```typescript
+// High-computation results kept longer
+if (result.computationCost > COST_THRESHOLD) {
+  cache.set(key, result, { ttl: EXTENDED_TTL });
+}
+```
+
+---
+
+## Security Model
+
+### Defense in Depth
+
+```
+┌─────────────────────────────────────────┐
+│           Security Layers               │
+├─────────────────────────────────────────┤
+│                                         │
+│  1. Network Layer                       │
+│     - HTTPS enforcement                 │
+│     - CORS policies                     │
+│                                         │
+│  2. Application Layer                   │
+│     - Helmet security headers           │
+│     - Rate limiting                     │
+│     - Input validation (Zod)            │
+│                                         │
+│  3. Authentication Layer                │
+│     - JWT verification                  │
+│     - Session management                │
+│                                         │
+│  4. Authorization Layer                 │
+│     - Role-based access                 │
+│     - Path policies                     │
+│                                         │
+│  5. Execution Layer                     │
+│     - Sandboxed tool execution          │
+│     - Path traversal protection         │
+│                                         │
+└─────────────────────────────────────────┘
+```
+
+### Path Policy Service
+
+```typescript
+// Validates all file operations
+class PathPolicyService {
+  validatePath(requestedPath: string, workspaceRoot: string): boolean {
+    const resolved = path.resolve(requestedPath);
+    const workspace = path.resolve(workspaceRoot);
+    
+    // Prevent path traversal
+    if (!resolved.startsWith(workspace)) {
+      throw new SecurityError('Path outside workspace');
+    }
+    
+    // Block sensitive paths
+    if (isSensitivePath(resolved)) {
+      throw new SecurityError('Access denied');
+    }
+    
+    return true;
+  }
+}
+```
+
+---
+
+## Deployment Architecture
+
+### Docker Compose (Development)
+
+```yaml
+version: '3.8'
+services:
+  backend:
+    build: ./backend
+    environment:
+      - NODE_ENV=production
+      - NVIDIA_NIM_API_KEY=${NVIDIA_NIM_API_KEY}
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./data:/app/data
+    depends_on:
+      - redis
+      
+  frontend:
+    build: ./frontend
+    ports:
+      - "5173:80"
+    environment:
+      - VITE_API_URL=http://localhost:3000
+      
+  redis:
+    image: redis:7-alpine
+    volumes:
+      - redis-data:/data
+```
+
+### Kubernetes (Production)
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grump-backend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: grump-backend
+  template:
+    spec:
+      containers:
+      - name: backend
+        image: grump/backend:2.1.0
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "500m"
+          limits:
+            memory: "2Gi"
+            cpu: "2000m"
+        env:
+        - name: NODE_ENV
+          value: "production"
+        - name: REDIS_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: grump-config
+              key: redis-host
+```
+
+### NGC-Ready Deployment
+
+```bash
+# GCP
+cd deploy/ngc/gcp
+./provision.sh  # Creates GKE cluster with GPU nodes
+./deploy.sh     # Deploys G-Rump with NVIDIA operators
+
+# AWS
+cd deploy/ngc/aws
+./provision.sh  # Creates EKS cluster with GPU nodes
+./deploy.sh
+```
+
+---
+
+## Performance Optimizations
+
+### Benchmarks
 
 | Operation | Traditional | G-Rump | Improvement |
-|:---------:|:-----------:|:------:|:-----------:|
-| Backend Build | 45s | 2.5s | **18x faster** |
-| Intent Parsing | 120ms | 8ms | **15x faster** |
-| CLI Startup | 850ms | 45ms | **19x faster** |
-| Docker Build | 180s | 25s | **7x faster** |
+|-----------|-------------|--------|-------------|
+| Backend Build | 45s | 2.5s | **18x** |
+| Intent Parsing | 120ms | 8ms | **15x** |
+| CLI Startup | 850ms | 45ms | **19x** |
+| Docker Build | 180s | 25s | **7x** |
+| Cache Hit | - | <1ms | Instant |
 
-### NIM, Cost Dashboard, and Intent
+### Optimization Strategies
 
-- **Local NIM:** Set `NVIDIA_NIM_URL` (e.g. `http://nim:8000`) when using a self-hosted or local NIM stack (e.g. `docker compose -f docker-compose.yml -f docker-compose.gpu.yml`). Omitting it uses the cloud default.
-- **Cost dashboard:** The backend mounts `/api/cost` (see `costDashboard.ts`). The frontend exposes a lazy-loaded Cost dashboard (Settings → Cost dashboard, or via the cost snippet in the sidebar).
-- **WASM intent:** Optional. Set `GRUMP_USE_WASM_INTENT=true` to prefer the WASM intent parser when available; otherwise the CLI is used. Build the WASM module with `./build-wasm.sh` or `build-wasm.bat` in `intent-compiler/`.
+1. **SWC Compilation**
+   - Replaces ts-node for 18x faster builds
+   - Native Rust-based TypeScript compiler
 
-## Monorepo Packages
+2. **Rust Intent Parser**
+   - SIMD-accelerated text processing
+   - 15x faster than LLM-only parsing
 
-| Package | Description |
-|---------|-------------|
-| `frontend/` | Svelte 5 + Electron desktop app |
-| `backend/` | Express 5 API server |
-| `packages/ai-core/` | Model router and provider registry |
-| `packages/cli/` | CLI commands (`@g-rump/cli`) |
-| `packages/shared-types/` | Shared TypeScript types |
-| `packages/rag/` | RAG engine with Pinecone |
-| `packages/voice/` | Voice ASR/TTS (NVIDIA Build) |
-| `packages/memory/` | Conversation memory |
-| `packages/kimi/` | Kimi K2.5 optimizations |
-| `packages/compiler-enhanced/` | Incremental compilation |
-| `packages/vscode-extension/` | VS Code extension |
+3. **3-Tier Caching**
+   - 50%+ cache hit rate in production
+   - Content-addressed keys prevent duplication
 
-## Future Improvements
+4. **Worker Pool**
+   - Parallel task execution
+   - CPU-intensive work offloaded from main thread
 
-- [ ] Code splitting for backend services
-- [ ] Offline mode support with local LLMs
-- [ ] Real-time collaboration features
-- [ ] Enhanced codebase analysis with dependency graphs
+5. **Smart Model Routing**
+   - Cost-aware provider selection
+   - Automatic model selection based on complexity
+
+---
+
+## Related Documentation
+
+- [HOW_IT_WORKS.md](./HOW_IT_WORKS.md) - Request pipeline details
+- [AGENT_SYSTEM.md](./AGENT_SYSTEM.md) - G-Agent orchestration
+- [API.md](./API.md) - API reference
+- [SECURITY.md](./SECURITY.md) - Security configuration
+- [PRODUCTION.md](./PRODUCTION.md) - Deployment guide
+- [adr/](./adr/) - Architecture Decision Records

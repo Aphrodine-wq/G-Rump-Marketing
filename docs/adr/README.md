@@ -34,7 +34,8 @@ Each ADR follows this structure:
 | [0008](./0008-sqlite-supabase-hybrid.md) | SQLite + Supabase Hybrid Database | Accepted | 2024-03 |
 | [0009](./0009-sse-streaming.md) | Server-Sent Events for AI Streaming | Accepted | 2024-02 |
 | [0010](./0010-vitest-playwright-testing.md) | Vitest + Playwright Testing Strategy | Accepted | 2024-03 |
+| [005](./005-intent-rag-fusion.md) | Intent-RAG Fusion Workflow | Accepted | 2026-02 |
 
 ---
 
-*Last Updated: January 2026*
+*Last Updated: February 2026*

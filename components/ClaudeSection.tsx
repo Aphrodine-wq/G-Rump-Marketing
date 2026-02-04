@@ -5,13 +5,8 @@ import { ClaudeLogo } from './ui/Icons';
 
 const ClaudeSection: React.FC = () => {
   return (
-    <div className="py-24 md:py-32 bg-[#0f0e0e] relative overflow-hidden">
-      {/* Claude Orange/Warm Glows */}
-      <div className="absolute top-0 left-0 w-[600px] h-[600px] bg-[#d97757] opacity-10 blur-[150px] rounded-full pointer-events-none"></div>
-      <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-[#d97757] opacity-5 blur-[120px] rounded-full pointer-events-none"></div>
-      
-      {/* Grid Pattern */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#d9775710_1px,transparent_1px),linear-gradient(to_bottom,#d9775710_1px,transparent_1px)] bg-[size:40px_40px] opacity-20 pointer-events-none"></div>
+    <div className="py-24 md:py-32 bg-app relative overflow-hidden">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,#e5e7eb_1px,transparent_0)] bg-[size:40px_40px] opacity-30 pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="flex flex-col lg:flex-row-reverse items-center gap-16">
@@ -22,7 +17,7 @@ const ClaudeSection: React.FC = () => {
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#d97757]/10 border border-[#d97757]/20 text-[#d97757] text-xs font-bold uppercase tracking-widest mb-6"
+              className="inline-flex items-center gap-2 px-3 py-1 rounded-full badge text-xs font-bold uppercase tracking-widest mb-6"
             >
               <ClaudeLogo className="w-3 h-3" />
               Powered by Claude Opus 4.5
@@ -32,9 +27,9 @@ const ClaudeSection: React.FC = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-4xl md:text-5xl font-bold text-white mb-6 tracking-tight leading-tight"
+              className="text-4xl md:text-5xl font-bold text-[#1a1a2e] mb-6 tracking-tight leading-tight"
             >
-              Reasoning Engine: <span className="text-[#d97757]">Claude Opus 4.5</span>
+              Reasoning Engine: <span className="text-[#7c3aed]">Claude Opus 4.5</span>
             </motion.h2>
             
             <motion.p 
@@ -42,7 +37,7 @@ const ClaudeSection: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className="text-gray-400 text-lg mb-8 leading-relaxed font-light"
+              className="text-[#4a4a5a] text-lg mb-8 leading-relaxed font-light"
             >
               When complex architectural decisions need to be made, G-Agent consults Claude Opus 4.5. Its superior reasoning capabilities allow for deep understanding of system design patterns and edge cases.
             </motion.p>
@@ -60,14 +55,14 @@ const ClaudeSection: React.FC = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.2 + (i * 0.1) }}
-                  className="bg-white/5 border border-white/10 rounded-xl p-4 hover:border-[#d97757]/50 transition-colors group"
+                  className="feature-card rounded-xl p-4 group"
                 >
                   <div className="flex items-center gap-3 mb-2">
-                    <stat.icon size={18} className="text-[#d97757]" />
-                    <span className="text-gray-400 text-xs uppercase tracking-wide">{stat.label}</span>
+                    <stat.icon size={18} className="text-[#7c3aed]" />
+                    <span className="text-[#6b7280] text-xs uppercase tracking-wide">{stat.label}</span>
                   </div>
-                  <div className="text-2xl font-bold text-white group-hover:text-[#d97757] transition-colors">{stat.value}</div>
-                  <div className="text-xs text-gray-500">{stat.sub}</div>
+                  <div className="text-2xl font-bold text-[#1a1a2e] group-hover:text-[#7c3aed] transition-colors">{stat.value}</div>
+                  <div className="text-xs text-[#6b7280]">{stat.sub}</div>
                 </motion.div>
               ))}
             </div>

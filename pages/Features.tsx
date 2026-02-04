@@ -53,14 +53,14 @@ const FeaturesPage: React.FC = () => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0 }}
-      className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto"
+      className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto bg-app min-h-screen"
     >
       <div className="text-center mb-20">
-        <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-gray-900 mb-6">
+        <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-[#1a1a2e] mb-6">
           Under the Hood
         </h1>
-        <p className="text-xl text-gray-500 max-w-3xl mx-auto leading-relaxed">
-          G-Rump isn't just a wrapper. It's a complete reimagining of the software development lifecycle, powered by bare-metal performance and agentic AI.
+        <p className="text-xl text-[#4a4a5a] max-w-3xl mx-auto leading-relaxed">
+          G-Rump isn&apos;t just a wrapper. It&apos;s a complete reimagining of the software development lifecycle, powered by bare-metal performance and agentic AI.
         </p>
       </div>
 
@@ -72,13 +72,13 @@ const FeaturesPage: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.1 }}
             viewport={{ once: true }}
-            className="p-8 rounded-3xl border border-gray-100 bg-white shadow-xl shadow-gray-200/50 hover:shadow-2xl hover:border-purple-100 hover:-translate-y-1 transition-all duration-300"
+            className="feature-card p-8 rounded-2xl"
           >
-            <div className={`w-14 h-14 ${f.bg} rounded-2xl flex items-center justify-center mb-6`}>
-              <f.icon size={28} className={f.color} />
+            <div className="icon-box w-14 h-14 bg-[#7c3aed] rounded-xl flex items-center justify-center mb-6">
+              <f.icon size={28} className="text-white" />
             </div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">{f.title}</h3>
-            <p className="text-gray-500 leading-relaxed">
+            <h3 className="text-2xl font-bold text-[#1a1a2e] mb-4">{f.title}</h3>
+            <p className="text-[#4a4a5a] leading-relaxed">
               {f.description}
             </p>
           </motion.div>

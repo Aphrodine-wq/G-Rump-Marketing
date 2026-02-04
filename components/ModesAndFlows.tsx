@@ -128,7 +128,7 @@ const FlowSection: React.FC<{ flow: typeof flows[0]; index: number }> = ({ flow,
 
 const ModesAndFlows: React.FC = () => {
   return (
-    <section id="how-it-works" className="overflow-hidden bg-white py-12 sm:py-20 lg:py-28">
+    <section id="how-it-works" className="overflow-hidden bg-white py-20 sm:py-32 lg:py-40">
       <div className="mx-auto max-w-[90rem] px-6 sm:px-8 lg:px-10">
         <motion.div
           className="mx-auto max-w-3xl text-center"
@@ -137,18 +137,18 @@ const ModesAndFlows: React.FC = () => {
           viewport={{ once: true, amount: 0.5 }}
           transition={{ duration: 0.6 }}
         >
-          <span className="inline-flex items-center gap-2 rounded-full border border-purple-200 bg-purple-50 px-4 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-purple-600">
+          <span className="inline-flex items-center gap-2 rounded-full border border-purple-200/60 bg-purple-50/50 px-4 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-purple-600 backdrop-blur-sm">
             Advanced capabilities
           </span>
-          <h2 className="mt-6 text-[2.5rem] font-bold tracking-tight text-[#1a1a2e] sm:text-[2.75rem]">
+          <h2 className="mt-8 text-[2.75rem] font-bold tracking-tight text-[#1a1a2e] sm:text-[3.25rem]">
             Flexible flows for every stage of building.
           </h2>
-          <p className="mt-8 text-lg text-gray-600 sm:text-xl">
+          <p className="mt-6 text-xl text-gray-600 sm:text-2xl">
             Whether you are ideating, compiling, or refining, G-Rump adapts with dedicated modes that feel custom-built for your team.
           </p>
         </motion.div>
 
-        <div className="mt-20 space-y-24 lg:space-y-32">
+        <div className="mt-24 space-y-24 lg:space-y-32">
           {flows.map((flow, index) => (
             <FlowSection key={flow.title} flow={flow} index={index} />
           ))}

@@ -61,28 +61,28 @@ const cardVariants = {
 
 const Features: React.FC = () => {
   return (
-    <section id="features" className="bg-gradient-to-b from-white to-purple-50/40 py-12 sm:py-20 lg:py-28">
+    <section id="features" className="bg-gradient-to-b from-white to-purple-50/40 py-20 sm:py-32 lg:py-40">
       <div className="mx-auto max-w-[90rem] px-6 sm:px-8 lg:px-10">
         <motion.div
-          className="mx-auto max-w-2xl text-center"
+          className="mx-auto max-w-3xl text-center"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.5 }}
           transition={{ duration: 0.6 }}
         >
-          <span className="inline-flex items-center gap-2 rounded-full border border-purple-200 bg-purple-50 px-4 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-purple-600">
+          <span className="inline-flex items-center gap-2 rounded-full border border-purple-200/60 bg-purple-50/50 px-4 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-purple-600 backdrop-blur-sm">
             End-to-end workflow
           </span>
-          <h2 className="mt-6 text-[2.5rem] font-bold tracking-tight text-[#1a1a2e] sm:text-[2.75rem]">
+          <h2 className="mt-8 text-[2.75rem] font-bold tracking-tight text-[#1a1a2e] sm:text-[3.25rem]">
             Everything you need to ship—faster than ever.
           </h2>
-          <p className="mt-6 text-lg text-gray-600 sm:text-xl">
+          <p className="mt-6 text-xl text-gray-600 sm:text-2xl">
             G-Rump is the AI operating system for product builders. Align your teams, architect with clarity, and deploy production-ready code in minutes.
           </p>
         </motion.div>
 
         <motion.div
-          className="mx-auto mt-20 grid max-w-6xl grid-cols-1 gap-8 md:grid-cols-3"
+          className="mx-auto mt-24 grid max-w-7xl grid-cols-1 gap-10 md:grid-cols-3"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -92,22 +92,22 @@ const Features: React.FC = () => {
             <motion.div
               key={feature.title}
               variants={cardVariants}
-              className="relative flex h-full flex-col gap-5 rounded-3xl border border-purple-100 bg-white/80 p-8 shadow-lg backdrop-blur-sm transition hover:-translate-y-2 hover:border-purple-200 hover:shadow-xl sm:p-10"
+              className="relative flex h-full flex-col gap-6 rounded-3xl border border-purple-100/60 bg-white/60 p-8 shadow-lg backdrop-blur-md transition-all duration-300 hover:-translate-y-2 hover:border-purple-200 hover:bg-white/80 hover:shadow-2xl sm:p-10"
             >
               <div className="w-fit rounded-2xl border border-purple-100 bg-purple-50/80 p-3 text-purple-600 shadow-inner">
-                <feature.icon size={22} />
+                <feature.icon size={24} />
               </div>
               <div>
                 <p className="text-xs font-semibold uppercase tracking-[0.18em] text-purple-500">
                   {feature.subtitle}
                 </p>
-                <h3 className="mt-2 text-xl font-semibold text-[#1a1a2e]">{feature.title}</h3>
-                <p className="mt-3 text-sm text-gray-600 sm:text-base">{feature.description}</p>
+                <h3 className="mt-3 text-2xl font-semibold text-[#1a1a2e]">{feature.title}</h3>
+                <p className="mt-4 text-base text-gray-600 sm:text-lg">{feature.description}</p>
               </div>
-              <ul className="mt-2 space-y-3 text-sm text-gray-500">
+              <ul className="mt-4 space-y-3 text-sm font-medium text-gray-500">
                 {feature.bullets.map((item) => (
-                  <li key={item} className="flex gap-2 leading-relaxed">
-                    <span className="mt-[6px] h-1.5 w-1.5 flex-none rounded-full bg-purple-400" aria-hidden="true" />
+                  <li key={item} className="flex gap-3 leading-relaxed">
+                    <span className="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-purple-400" aria-hidden="true" />
                     <span>{item}</span>
                   </li>
                 ))}

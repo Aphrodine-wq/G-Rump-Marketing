@@ -49,38 +49,40 @@ const itemVariants = {
 
 const TrustedBy: React.FC = () => {
   return (
-    <section className="bg-transparent py-20 sm:py-24">
-      <div className="mx-auto max-w-6xl rounded-3xl border border-purple-100/70 bg-white/80 px-6 py-16 shadow-sm backdrop-blur-sm sm:px-10 lg:px-16">
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.5 }}
-          variants={itemVariants}
-        >
-          <h2 className="text-center text-sm font-semibold uppercase tracking-[0.2em] text-purple-500">
-            Built for modern stacks
-          </h2>
-          <p className="mt-6 text-center text-lg font-medium text-gray-500">
-            Works seamlessly with the tools you already use
-          </p>
-        </motion.div>
-        <motion.div
-          className="mx-auto mt-16 grid max-w-3xl grid-cols-2 items-center gap-x-6 gap-y-8 sm:grid-cols-3 lg:max-w-4xl"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-          variants={containerVariants}
-        >
-          {logos.map((logo) => (
-            <motion.div key={logo.name} className="flex justify-center" variants={itemVariants}>
-              <div
-                className="flex h-16 w-36 items-center justify-center rounded-2xl border border-purple-100 bg-white/90 text-gray-400 transition-all hover:border-purple-200 hover:text-purple-500"
-                dangerouslySetInnerHTML={{ __html: logo.svg }}
-                aria-label={logo.name}
-              />
-            </motion.div>
-          ))}
-        </motion.div>
+    <section className="bg-transparent py-24 sm:py-32">
+      <div className="mx-auto max-w-full px-6 sm:px-10 lg:px-20">
+        <div className="mx-auto max-w-7xl rounded-3xl border border-purple-100/60 bg-white/80 px-6 py-20 shadow-sm backdrop-blur-sm sm:px-12 lg:px-20">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.5 }}
+            variants={itemVariants}
+          >
+            <h2 className="text-center text-sm font-semibold uppercase tracking-[0.2em] text-purple-500">
+              Built for modern stacks
+            </h2>
+            <p className="mt-6 text-center text-xl font-medium text-gray-600">
+              Works seamlessly with the tools you already use
+            </p>
+          </motion.div>
+          <motion.div
+            className="mx-auto mt-16 grid max-w-5xl grid-cols-2 items-center gap-x-12 gap-y-12 sm:grid-cols-3 lg:grid-cols-3"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={containerVariants}
+          >
+            {logos.map((logo) => (
+              <motion.div key={logo.name} className="flex justify-center" variants={itemVariants}>
+                <div
+                  className="flex h-20 w-full max-w-[200px] items-center justify-center rounded-2xl border border-purple-100/60 bg-white/60 text-gray-400 transition-all hover:border-purple-200 hover:bg-white/90 hover:text-purple-500 hover:shadow-md"
+                  dangerouslySetInnerHTML={{ __html: logo.svg }}
+                  aria-label={logo.name}
+                />
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
       </div>
     </section>
   );

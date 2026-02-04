@@ -5,7 +5,6 @@ import ModesAndFlows from '../components/ModesAndFlows';
 import AIProviders from '../components/AIProviders';
 import HomeDownloads from '../components/HomeDownloads';
 import TrustedBy from '../components/TrustedBy';
-import WaitlistSection from '../components/WaitlistSection';
 
 const Home: React.FC = () => {
   return (
@@ -24,7 +23,6 @@ const Home: React.FC = () => {
         <AIProviders />
       </section>
       <HomeDownloads />
-      <WaitlistSection />
     </>
   );
 };

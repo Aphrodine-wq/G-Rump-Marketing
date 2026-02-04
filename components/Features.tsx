@@ -1,67 +1,90 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import { PenLine, Layers, Zap } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const features = [
   {
     icon: PenLine,
-    title: '1. Describe',
-    description: 'Type what you want in plain English. No code required.',
+    title: 'Describe',
+    description: 'Start with a prompt. Describe your idea in plain English, and let G-Rump handle the translation to code.',
   },
   {
     icon: Layers,
-    title: '2. Design',
-    description: 'Get auto-generated architecture, PRDs, and diagrams.',
+    title: 'Design',
+    description: 'Instantly generate system architecture, user flows, and even product requirement documents.',
   },
   {
     icon: Zap,
-    title: '3. Ship',
-    description: 'Generate production-ready code for your entire stack.',
+    title: 'Ship',
+    description: 'Get production-ready code for your entire stack. Deploy with confidence and iterate in minutes, not weeks.',
   },
 ];
 
+const containerVariants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.2,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 50 },
+  visible: { 
+    opacity: 1, 
+    y: 0,
+    transition: { duration: 0.6 }
+  },
+};
+
 const Features: React.FC = () => {
-  const sectionRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    const el = sectionRef.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.querySelectorAll('.reveal').forEach((t) => t.classList.add('active'));
-          }
-        });
-      },
-      { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-
   return (
-    <section id="features" ref={sectionRef} className="py-28 bg-subtle">
+    <section id="features" className="py-20 sm:py-28 bg-gray-50/50">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="text-center mb-16 reveal">
-          <h2 className="text-h2 md:text-h2-lg font-bold text-[#1a1a2e] mb-4">
-            From Idea to Product in Minutes
-          </h2>
-          <p className="text-[#4a4a5a] text-body-lg">Three simple steps to ship faster than ever</p>
-        </div>
-        <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-          {features.map((f, i) => (
-            <div
-              key={f.title}
-              className={`feature-card rounded-2xl p-8 text-center reveal ${i === 1 ? 'stagger-1' : ''} ${i === 2 ? 'stagger-2' : ''}`}
-            >
-              <div className="icon-box w-14 h-14 bg-[#7c3aed] rounded-xl flex items-center justify-center mb-6 mx-auto">
-                <f.icon className="w-7 h-7 text-white" strokeWidth={2} />
-              </div>
-              <h3 className="text-h3 font-semibold text-[#1a1a2e] mb-3">{f.title}</h3>
-              <p className="text-[#4a4a5a] text-body">{f.description}</p>
-            </div>
-          ))}
-        </div>
+        <motion.div 
+          className="max-w-2xl mx-auto lg:text-center"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.5 }}
+          transition={{ duration: 0.6 }}
+        >
+          <h2 className="text-base font-semibold leading-7 text-purple-600">How G-Rump Works</h2>
+          <p className="mt-2 type-h2 font-bold tracking-tight text-gray-900">
+            Everything you need to ship, faster.
+          </p>
+          <p className="mt-6 type-body-lg text-gray-600">
+            A new standard for software development. Go from concept to production-ready code with a workflow that’s up to 10x faster.
+          </p>
+        </motion.div>
+        
+        <motion.div 
+          className="mx-auto mt-16 max-w-2xl lg:mt-20 lg:max-w-none"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+        >
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+            {features.map((feature) => (
+              <motion.div
+                key={feature.title}
+                className="flex flex-col p-8 bg-white rounded-2xl shadow-lg border border-gray-200/80"
+                variants={itemVariants}
+              >
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-purple-100 text-purple-600">
+                    <feature.icon className="h-6 w-6" aria-hidden="true" />
+                  </div>
+                  <h3 className="text-lg font-bold text-gray-900">{feature.title}</h3>
+                </div>
+                <p className="text-gray-600">
+                  {feature.description}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
       </div>
     </section>
   );

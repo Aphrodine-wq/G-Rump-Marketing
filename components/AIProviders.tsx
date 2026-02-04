@@ -1,66 +1,70 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
+import { motion } from 'framer-motion';
 
 const providers = [
-  {
-    name: 'Claude',
-    description: 'Deep reasoning for architecture decisions',
-    detail: 'Powers intelligent system design and complex problem-solving.',
-  },
-  {
-    name: 'Kimi',
-    description: 'Long-context processing for large codebases',
-    detail: 'Handles massive documents and multi-file analysis with ease.',
-  },
-  {
-    name: 'NVIDIA NIM',
-    description: 'GPU-accelerated inference',
-    detail: 'Lightning-fast code generation powered by Nemotron.',
-  },
+  { name: 'Claude', logo: () => <p className="text-2xl font-bold tracking-tighter">Anthropic</p> },
+  { name: 'Kimi', logo: () => <p className="text-2xl font-bold tracking-tighter">Moonshot AI</p> },
+  { name: 'NVIDIA NIM', logo: () => <p className="text-2xl font-bold tracking-tighter">NVIDIA</p> },
+  { name: 'Google', logo: () => <p className="text-2xl font-bold tracking-tighter">Google</p> },
+  { name: 'OpenAI', logo: () => <p className="text-2xl font-bold tracking-tighter">OpenAI</p> },
+  { name: 'Microsoft', logo: () => <p className="text-2xl font-bold tracking-tighter">Microsoft</p> },
 ];
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { 
+    opacity: 1, 
+    y: 0,
+    transition: { duration: 0.5 }
+  },
+};
+
 const AIProviders: React.FC = () => {
-  const sectionRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    const el = sectionRef.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.querySelectorAll('.reveal').forEach((t) => t.classList.add('active'));
-          }
-        });
-      },
-      { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-
   return (
-    <section id="ai-providers" ref={sectionRef} className="py-28 bg-white">
+    <section id="ai-providers" className="py-20 sm:py-28 bg-gray-50/50">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="text-center mb-16 reveal">
-          <h2 className="text-h2 md:text-h2-lg font-bold text-[#1a1a2e] mb-4">
-            Powered by the Best AI Models
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.5 }}
+          variants={itemVariants}
+        >
+          <h2 className="text-center text-lg font-semibold leading-8 text-gray-700">
+            Powered by world-class, multi-provider AI
           </h2>
-          <p className="text-[#4a4a5a] text-body-lg max-w-2xl mx-auto">
-            Intelligently routes to the right model for each task
-          </p>
-        </div>
-        <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-          {providers.map((p, i) => (
-            <div
-              key={p.name}
-              className={`text-center p-8 rounded-2xl bg-subtle reveal ${i === 1 ? 'stagger-1' : ''} ${i === 2 ? 'stagger-2' : ''}`}
+        </motion.div>
+        <motion.div 
+          className="mx-auto mt-10 grid max-w-lg grid-cols-2 items-center gap-x-8 gap-y-10 sm:max-w-xl sm:grid-cols-3 lg:mx-0 lg:max-w-none"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+          variants={containerVariants}
+        >
+          {providers.map((provider) => (
+            <motion.div
+              key={provider.name}
+              className="col-span-1 flex justify-center"
+              variants={itemVariants}
             >
-              <h3 className="text-h3 font-semibold text-[#1a1a2e] mb-2">{p.name}</h3>
-              <p className="text-[#7c3aed] text-body font-medium mb-3">{p.description}</p>
-              <p className="text-[#6b7280] text-body-sm">{p.detail}</p>
-            </div>
+              <div
+                className="text-gray-400 hover:text-gray-800 transition-colors duration-300"
+                aria-label={provider.name}
+              >
+                <provider.logo />
+              </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

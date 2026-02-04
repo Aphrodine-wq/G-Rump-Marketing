@@ -1,46 +1,50 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { Download } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const HomeDownloads: React.FC = () => {
-  const sectionRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    const el = sectionRef.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.querySelectorAll('.reveal').forEach((t) => t.classList.add('active'));
-          }
-        });
-      },
-      { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-
   return (
-    <section id="downloads" ref={sectionRef} className="py-20 bg-white border-t border-[#e5e7eb]">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 text-center reveal">
-        <div className="w-14 h-14 bg-[#7c3aed]/10 rounded-xl flex items-center justify-center mx-auto mb-6">
-          <Download className="w-7 h-7 text-[#7c3aed]" strokeWidth={2} />
-        </div>
-        <h2 className="text-h2 font-bold text-[#1a1a2e] mb-4">
-          Ready to get started?
-        </h2>
-        <p className="text-[#4a4a5a] text-body-lg mb-8 max-w-md mx-auto">
-          Download G-Rump for your platform and start shipping faster today.
-        </p>
-        <Link
-          to="/downloads"
-          className="btn-secondary px-8 py-4 rounded-xl font-semibold text-base inline-flex items-center gap-2"
+    <section className="bg-white">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 py-20 sm:py-28">
+        <motion.div
+          className="relative isolate overflow-hidden bg-gray-900 px-6 py-24 text-center shadow-2xl rounded-2xl sm:px-16"
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.5 }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
         >
-          <Download className="w-5 h-5" />
-          View Downloads
-        </Link>
+          <h2 className="mx-auto max-w-2xl type-h2 font-bold tracking-tight text-white">
+            Start Building Your Future, Today.
+          </h2>
+          <p className="mx-auto mt-6 max-w-xl type-body-lg text-gray-300">
+            Download the G-Rump beta for Windows and experience the next generation of software development.
+          </p>
+          <div className="mt-10 flex items-center justify-center gap-x-6">
+            <Link
+              to="/downloads"
+              className="btn-primary flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-semibold text-base"
+            >
+              <Download size={20} />
+              Download for Windows
+            </Link>
+          </div>
+
+          {/* Decorative elements */}
+          <svg
+            viewBox="0 0 1024 1024"
+            className="absolute left-1/2 top-1/2 -z-10 h-[64rem] w-[64rem] -translate-x-1/2 [mask-image:radial-gradient(closest-side,white,transparent)]"
+            aria-hidden="true"
+          >
+            <circle cx={512} cy={512} r={512} fill="url(#gradient-purple)" fillOpacity="0.7" />
+            <defs>
+              <radialGradient id="gradient-purple">
+                <stop stopColor="#7c3aed" />
+                <stop offset={1} stopColor="#4c1d95" />
+              </radialGradient>
+            </defs>
+          </svg>
+        </motion.div>
       </div>
     </section>
   );

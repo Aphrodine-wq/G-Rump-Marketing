@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Download } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import Logo from './Logo';
 
@@ -49,10 +49,11 @@ const Navbar: React.FC = () => {
                 </Link>
               ))}
               <Link
-                to="/#waitlist"
-                className="btn-primary px-6 py-3 rounded-xl text-body-sm font-semibold min-h-[44px] flex items-center"
+                to="/downloads"
+                className="btn-primary px-5 py-2.5 rounded-xl text-body-sm font-semibold min-h-[44px] flex items-center gap-2"
               >
-                Join Waitlist
+                <Download size={16} />
+                Download
               </Link>
             </div>
 
@@ -89,11 +90,12 @@ const Navbar: React.FC = () => {
                 </Link>
               ))}
               <Link
-                to="/#waitlist"
-                className="btn-primary px-6 py-3 rounded-xl text-body-sm font-semibold text-center min-h-[44px] flex items-center justify-center mt-2"
+                to="/downloads"
+                className="btn-primary px-6 py-3 rounded-xl text-body-sm font-semibold text-center min-h-[44px] flex items-center justify-center mt-2 gap-2"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                Join Waitlist
+                <Download size={16} />
+                Download
               </Link>
             </div>
           </div>

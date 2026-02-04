@@ -1,49 +1,57 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Download } from 'lucide-react';
+import { Download, ExternalLink } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { Button } from './ui/Button';
 
 const HomeDownloads: React.FC = () => {
   return (
-    <section className="bg-white">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 py-20 sm:py-28">
+    <section className="bg-gradient-to-b from-white via-white to-purple-50/40">
+      <div className="mx-auto max-w-7xl px-6 py-20 sm:py-28 lg:px-8">
         <motion.div
-          className="relative isolate overflow-hidden bg-gray-900 px-6 py-24 text-center shadow-2xl rounded-2xl sm:px-16"
-          initial={{ opacity: 0, y: 50 }}
+          className="relative overflow-hidden rounded-3xl border border-purple-100 bg-white/80 px-8 py-20 text-center shadow-lg backdrop-blur-sm sm:px-16"
+          initial={{ opacity: 0, y: 45 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.5 }}
-          transition={{ duration: 0.7, ease: "easeOut" }}
+          viewport={{ once: true, amount: 0.4 }}
+          transition={{ duration: 0.7, ease: 'easeOut' }}
         >
-          <h2 className="mx-auto max-w-2xl type-h2 font-bold tracking-tight text-white">
-            Start Building Your Future, Today.
-          </h2>
-          <p className="mx-auto mt-6 max-w-xl type-body-lg text-gray-300">
-            Download the G-Rump beta for Windows and experience the next generation of software development.
-          </p>
-          <div className="mt-10 flex items-center justify-center gap-x-6">
-            <Link
-              to="/downloads"
-              className="btn-primary flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-semibold text-base"
-            >
-              <Download size={20} />
-              Download for Windows
-            </Link>
+          <div
+            className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,_#ede9fe_0%,_transparent_55%)]"
+            aria-hidden="true"
+          />
+          <div className="mx-auto max-w-2xl">
+            <h2 className="type-h2 font-bold tracking-tight text-gray-900 sm:text-[2.5rem]">
+              Start Building in Minutes.
+            </h2>
+            <p className="mt-6 text-lg text-gray-600 sm:text-xl">
+              Download G-Agent, ship G-Rump. The entire workflow—from prompt to production-ready code—is just one click away.
+            </p>
           </div>
 
-          {/* Decorative elements */}
-          <svg
-            viewBox="0 0 1024 1024"
-            className="absolute left-1/2 top-1/2 -z-10 h-[64rem] w-[64rem] -translate-x-1/2 [mask-image:radial-gradient(closest-side,white,transparent)]"
-            aria-hidden="true"
-          >
-            <circle cx={512} cy={512} r={512} fill="url(#gradient-purple)" fillOpacity="0.7" />
-            <defs>
-              <radialGradient id="gradient-purple">
-                <stop stopColor="#7c3aed" />
-                <stop offset={1} stopColor="#4c1d95" />
-              </radialGradient>
-            </defs>
-          </svg>
+          <div className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row">
+            <Button asChild className="min-w-[220px]">
+              <Link to="/downloads">
+                <Download size={18} />
+                Download G-Agent
+              </Link>
+            </Button>
+            <Button
+              asChild
+              variant="outline"
+              className="min-w-[220px] border-purple-200 text-purple-600 hover:bg-purple-50"
+            >
+              <a href="https://github.com/Aphrodine-wq/g-rump.com" target="_blank" rel="noopener noreferrer">
+                <ExternalLink size={18} />
+                View source on GitHub
+              </a>
+            </Button>
+          </div>
+
+          <div className="mt-10 flex flex-col items-center justify-center gap-3 text-sm text-gray-500 sm:flex-row">
+            <span>Free during beta · No credit card required</span>
+            <span className="hidden h-3 w-px bg-gray-200 sm:block" aria-hidden="true" />
+            <span>Includes CLI + desktop builds for every platform</span>
+          </div>
         </motion.div>
       </div>
     </section>

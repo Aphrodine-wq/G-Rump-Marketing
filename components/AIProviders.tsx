@@ -31,20 +31,28 @@ const itemVariants = {
 
 const AIProviders: React.FC = () => {
   return (
-    <section id="ai-providers" className="py-20 sm:py-28 bg-gray-50/50">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+    <section id="ai-providers" className="bg-white py-20 sm:py-28">
+      <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.5 }}
           variants={itemVariants}
+          className="text-center"
         >
-          <h2 className="text-center text-lg font-semibold leading-8 text-gray-700">
-            Powered by world-class, multi-provider AI
+          <span className="inline-flex items-center gap-2 rounded-full border border-purple-200 bg-purple-50 px-4 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-purple-600">
+            Multi-provider coverage
+          </span>
+          <h2 className="mt-4 text-[2rem] font-semibold text-[#1a1a2e]">
+            Powered by the world’s best AI foundation models.
           </h2>
+          <p className="mt-3 text-base text-gray-600 sm:text-lg">
+            Mix and match providers per workload—pricing, latency, or capability. G-Rump orchestrates them seamlessly.
+          </p>
         </motion.div>
-        <motion.div 
-          className="mx-auto mt-10 grid max-w-lg grid-cols-2 items-center gap-x-8 gap-y-10 sm:max-w-xl sm:grid-cols-3 lg:mx-0 lg:max-w-none"
+
+        <motion.div
+          className="mx-auto mt-16 grid max-w-4xl grid-cols-2 gap-6 sm:grid-cols-3"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.3 }}
@@ -53,14 +61,12 @@ const AIProviders: React.FC = () => {
           {providers.map((provider) => (
             <motion.div
               key={provider.name}
-              className="col-span-1 flex justify-center"
+              className="flex items-center justify-center rounded-2xl border border-purple-100 bg-white/80 px-6 py-6 text-center shadow-sm transition hover:-translate-y-1 hover:border-purple-200 hover:shadow-lg"
               variants={itemVariants}
             >
-              <div
-                className="text-gray-400 hover:text-gray-800 transition-colors duration-300"
-                aria-label={provider.name}
-              >
+              <div className="text-base font-semibold tracking-tight text-gray-600 hover:text-purple-500">
                 <provider.logo />
+                <p className="mt-2 text-xs uppercase tracking-[0.2em] text-purple-400">{provider.name}</p>
               </div>
             </motion.div>
           ))}

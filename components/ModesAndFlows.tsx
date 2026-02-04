@@ -6,41 +6,74 @@ const flows = [
   {
     icon: MessageSquare,
     title: 'Conversational Development',
-    subtitle: 'Use the chat-based workflow to ask questions, iterate on ideas, and generate code snippets. Perfect for quick tasks and exploration.',
-    features: ['Code generation', 'Architectural advice', 'Project bootstrapping', 'Debugging assistance'],
+    subtitle:
+      'Ask questions, refine requirements, and generate targeted snippets with a conversational AI partner that understands your stack.',
+    features: ['Code generation', 'Architectural guidance', 'Project bootstrapping', 'Debugging assistance'],
     visual: (
-      <div className="p-4 bg-gray-800 rounded-lg text-left text-sm font-mono">
-        <p className="text-gray-400">&gt; g-rump: bootstrap a react app with vite and tailwind</p>
-        <p className="text-green-400">...
-        <br />Done. Project 'my-app' created.
-        <br />Happy hacking!</p>
+      <div className="relative h-full w-full rounded-2xl border border-white/10 bg-gradient-to-br from-[#0f172a] via-[#111c32] to-[#1e293b] p-6 text-left text-sm font-mono text-slate-200 shadow-xl">
+        <div className="mb-4 flex gap-2 text-xs text-slate-500">
+          <span className="rounded-full border border-slate-700/80 px-3 py-1 uppercase tracking-[0.18em]">chat</span>
+          <span className="rounded-full border border-slate-700/80 px-3 py-1 uppercase tracking-[0.18em]">assist</span>
+        </div>
+        <p className="text-slate-400">&gt; g-rump bootstrap react-app --with tailwind</p>
+        <div className="mt-4 space-y-2 text-emerald-400">
+          <p>✔ Creating project skeleton…</p>
+          <p>✔ Installing dependencies…</p>
+          <p>✔ Wiring auth, data, and UI layers…</p>
+        </div>
+        <p className="mt-6 text-slate-300">
+          Project <span className="text-purple-300">'launchpad'</span> ready in <span className="text-emerald-300">57s</span>.
+        </p>
       </div>
     ),
   },
   {
     icon: Rocket,
     title: 'End-to-End Product Shipment',
-    subtitle: 'Describe your vision in a single, comprehensive prompt. G-Rump will generate the full PRD, system architecture, and production-ready codebase.',
-    features: ['Single-prompt completion', 'Multi-agent collaboration', 'Automated PRD generation', 'Full-stack code output'],
+    subtitle:
+      'Describe your product vision once. G-Rump assembles PRDs, architecture, code, and deployment workflows in a single run.',
+    features: ['Single-prompt completion', 'Multi-agent orchestration', 'Automated PRDs', 'Production-ready code'],
     visual: (
-       <div className="p-4 bg-gray-100 rounded-lg text-center">
+      <div className="flex h-full w-full flex-col justify-between rounded-2xl border border-purple-100 bg-white p-6 text-center shadow-xl">
         <Rocket className="mx-auto h-12 w-12 text-purple-500" />
-        <p className="mt-2 font-semibold">Project "Apollo" is building...</p>
-        <div className="mt-2 h-2 w-full bg-gray-200 rounded-full overflow-hidden"><div className="h-2 w-3/4 bg-purple-500"></div></div>
+        <div>
+          <p className="text-sm font-semibold text-gray-700">Compiling project “Apollo”</p>
+          <div className="mt-4 h-2 w-full rounded-full bg-purple-100">
+            <div className="h-full w-3/4 rounded-full bg-gradient-to-r from-purple-500 to-purple-400" />
+          </div>
+        </div>
+        <div className="mt-6 grid grid-cols-2 gap-2 text-left text-xs text-gray-500">
+          <div className="rounded-lg border border-purple-100/70 bg-purple-50/70 px-3 py-2">Architecture</div>
+          <div className="rounded-lg border border-purple-100/70 bg-purple-50/70 px-3 py-2">Docs</div>
+          <div className="rounded-lg border border-purple-100/70 bg-purple-50/70 px-3 py-2">Frontend</div>
+          <div className="rounded-lg border border-purple-100/70 bg-purple-50/70 px-3 py-2">Backend</div>
+        </div>
       </div>
     ),
   },
   {
     icon: Code,
     title: 'Targeted Code Generation',
-    subtitle: 'Bring your own architecture and specifications. G-Rump’s hyper-compiler will generate high-quality, production-ready code for any platform.',
-    features: ['BYO architecture', 'High-quality code', 'Multi-platform support', 'PR reviews & feedback'],
+    subtitle:
+      'Bring your own specs. G-Rump’s hyper-compiler produces precise modules, tests, and PR-ready diffs tailored to your architecture.',
+    features: ['BYO architecture', 'High-quality code', 'Multi-platform support', 'In-line PR reviews'],
     visual: (
-       <div className="p-4 bg-gray-800 rounded-lg text-left text-sm font-mono">
-        <p className="text-gray-400"># Generating code from spec_v2.json...</p>
-        <p><span className="text-green-400">[✓]</span> Generated api/routes.ts</p>
-        <p><span className="text-green-400">[✓]</span> Generated web/components/Button.tsx</p>
-        <p><span className="text-green-400">[✓]</span> Generated tests/api.test.ts</p>
+      <div className="relative h-full w-full rounded-2xl border border-white/10 bg-gradient-to-br from-[#0c1a2a] via-[#0f2538] to-[#14324d] p-6 font-mono text-sm text-sky-100 shadow-xl">
+        <p className="text-sky-300"># compiling spec_v2.json</p>
+        <div className="mt-4 space-y-2">
+          <p>
+            <span className="text-emerald-400">[✔]</span> api/routes.ts
+          </p>
+          <p>
+            <span className="text-emerald-400">[✔]</span> web/components/Hero.tsx
+          </p>
+          <p>
+            <span className="text-emerald-400">[✔]</span> infra/deploy.yml
+          </p>
+        </div>
+        <div className="mt-6 rounded-xl border border-sky-300/30 bg-sky-300/10 px-4 py-3 text-xs text-sky-100">
+          PR feedback: <span className="font-semibold text-white">3 suggestions auto-applied</span>
+        </div>
       </div>
     ),
   },
@@ -50,65 +83,68 @@ const FlowSection: React.FC<{ flow: typeof flows[0]; index: number }> = ({ flow,
   const isReversed = index % 2 !== 0;
 
   return (
-    <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-20">
+    <motion.div
+      className="grid grid-cols-1 items-stretch gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-16"
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.4 }}
+      transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] as const }}
+    >
       <motion.div
-        className={`lg:col-start-${isReversed ? 2 : 1}`}
-        initial={{ opacity: 0, x: isReversed ? 50 : -50 }}
-        whileInView={{ opacity: 1, x: 0 }}
+        className={`order-2 overflow-hidden rounded-3xl border border-purple-100 bg-white/80 shadow-xl backdrop-blur-sm lg:order-${isReversed ? 2 : 1}`}
+        initial={{ opacity: 0, scale: 0.95 }}
+        whileInView={{ opacity: 1, scale: 1 }}
         viewport={{ once: true, amount: 0.4 }}
-        transition={{ duration: 0.7 }}
+        transition={{ duration: 0.6, delay: 0.15 }}
       >
-        <div className="relative aspect-[4/3] bg-white rounded-2xl shadow-2xl p-2 border border-gray-200/60">
-          <div className="w-full h-full rounded-lg flex items-center justify-center">
-            {flow.visual}
-          </div>
-        </div>
+        <div className="h-full w-full p-6">{flow.visual}</div>
       </motion.div>
-      
-      <motion.div
-        className={`lg:col-start-${isReversed ? 1 : 2} row-start-1`}
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.4 }}
-        transition={{ duration: 0.7 }}
-      >
-        <div className="flex items-center gap-3 mb-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-purple-100 text-purple-600">
+
+      <div className={`order-1 flex flex-col justify-center lg:order-${isReversed ? 1 : 2}`}>
+        <div className="flex items-center gap-3">
+          <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-purple-100 bg-purple-50/80 text-purple-600 shadow-inner">
             <flow.icon className="h-5 w-5" aria-hidden="true" />
           </div>
-          <h3 className="text-xl font-bold text-gray-900">{flow.title}</h3>
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-purple-500">
+              Mode {index + 1}
+            </p>
+            <h3 className="mt-1 text-2xl font-semibold text-[#1a1a2e] sm:text-[1.75rem]">{flow.title}</h3>
+          </div>
         </div>
-        <p className="text-gray-600 type-body-lg">{flow.subtitle}</p>
-        <ul className="mt-6 space-y-3">
-          {flow.features.map(feature => (
-            <li key={feature} className="flex items-center gap-3 text-gray-700">
-              <CheckCircle className="h-5 w-5 text-green-500" />
+        <p className="mt-4 text-base text-gray-600 sm:text-lg">{flow.subtitle}</p>
+        <ul className="mt-6 space-y-3 text-sm text-gray-600 sm:text-base">
+          {flow.features.map((feature) => (
+            <li key={feature} className="flex items-start gap-3">
+              <CheckCircle className="mt-0.5 h-5 w-5 flex-none text-emerald-400" />
               <span>{feature}</span>
             </li>
           ))}
         </ul>
-      </motion.div>
-    </div>
+      </div>
+    </motion.div>
   );
 };
 
 const ModesAndFlows: React.FC = () => {
   return (
-    <section id="how-it-works" className="py-20 sm:py-28 bg-white overflow-x-hidden">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+    <section id="how-it-works" className="overflow-hidden bg-white py-20 sm:py-28">
+      <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <motion.div
-          className="max-w-3xl mx-auto lg:text-center"
+          className="mx-auto max-w-3xl text-center"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.5 }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-base font-semibold leading-7 text-purple-600">Advanced Capabilities</h2>
-          <p className="mt-2 type-h2 font-bold tracking-tight text-gray-900">
-            Flexible & Powerful Workflows
-          </p>
-          <p className="mt-6 type-body-lg text-gray-600">
-            Whether you're brainstorming, building, or refactoring, G-Rump adapts to your needs with three powerful modes of operation.
+          <span className="inline-flex items-center gap-2 rounded-full border border-purple-200 bg-purple-50 px-4 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-purple-600">
+            Advanced capabilities
+          </span>
+          <h2 className="mt-4 text-[2.5rem] font-bold tracking-tight text-[#1a1a2e] sm:text-[2.75rem]">
+            Flexible flows for every stage of building.
+          </h2>
+          <p className="mt-6 text-lg text-gray-600 sm:text-xl">
+            Whether you are ideating, compiling, or refining, G-Rump adapts with dedicated modes that feel custom-built for your team.
           </p>
         </motion.div>
 

@@ -31,33 +31,32 @@ const itemVariants = {
 
 const TrustedBy: React.FC = () => {
   return (
-    <div className="bg-white py-16 sm:py-20">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+    <section className="bg-transparent py-16 sm:py-20">
+      <div className="mx-auto max-w-6xl rounded-3xl border border-purple-100/70 bg-white/80 px-6 py-12 shadow-sm backdrop-blur-sm sm:px-10 lg:px-16">
         <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.5 }}
           variants={itemVariants}
         >
-          <h2 className="text-center text-lg font-semibold leading-8 text-gray-600">
-            Trusted by the world's most innovative companies
+          <h2 className="text-center text-sm font-semibold uppercase tracking-[0.2em] text-purple-500">
+            Trusted by innovators
           </h2>
+          <p className="mt-3 text-center text-lg font-medium text-gray-500">
+            Teams building the future with AI-native tooling
+          </p>
         </motion.div>
-        <motion.div 
-          className="mx-auto mt-10 grid max-w-lg grid-cols-2 items-center gap-x-8 gap-y-10 sm:max-w-xl sm:grid-cols-3 lg:mx-0 lg:max-w-none"
+        <motion.div
+          className="mx-auto mt-10 grid max-w-3xl grid-cols-2 items-center gap-x-6 gap-y-8 sm:grid-cols-3 lg:max-w-4xl"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.3 }}
           variants={containerVariants}
         >
           {logos.map((logo) => (
-            <motion.div
-              key={logo.name}
-              className="col-span-1 flex justify-center"
-              variants={itemVariants}
-            >
+            <motion.div key={logo.name} className="flex justify-center" variants={itemVariants}>
               <div
-                className="w-32 h-16 text-gray-400 hover:text-gray-800 transition-colors duration-300"
+                className="flex h-16 w-36 items-center justify-center rounded-2xl border border-purple-100 bg-white/90 text-gray-400 transition-all hover:border-purple-200 hover:text-purple-500"
                 dangerouslySetInnerHTML={{ __html: logo.svg }}
                 aria-label={logo.name}
               />
@@ -65,7 +64,7 @@ const TrustedBy: React.FC = () => {
           ))}
         </motion.div>
       </div>
-    </div>
+    </section>
   );
 };
 

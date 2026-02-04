@@ -37,9 +37,18 @@ const MicrosoftSection: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className="text-[#4a4a5a] text-lg mb-8 leading-relaxed font-light"
+              className="text-[#4a4a5a] text-lg mb-3 leading-relaxed font-light"
             >
               Powered by Microsoft's cutting-edge Agent Lightning framework. G-Agent leverages Azure's global infrastructure for sub-millisecond latency and enterprise-grade security compliance.
+            </motion.p>
+            <motion.p 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.15 }}
+              className="text-[#6b7280] text-body-sm mb-8"
+            >
+              Used in G-Rump for global inference, enterprise security, and scale.
             </motion.p>
 
             <div className="grid grid-cols-2 gap-6">

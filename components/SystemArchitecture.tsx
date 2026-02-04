@@ -291,7 +291,7 @@ const SystemArchitecture: React.FC = () => {
   }, []);
 
   return (
-    <div className="bg-[#050505] text-white py-24 relative overflow-hidden border-t border-gray-900">
+    <div className="bg-[#050505] text-white py-28 relative overflow-hidden border-t border-gray-900">
 
       {/* Background Grid */}
       <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:50px_50px] [mask-image:radial-gradient(ellipse_at_center,black_40%,transparent_100%)] pointer-events-none" />
@@ -300,6 +300,7 @@ const SystemArchitecture: React.FC = () => {
 
         {/* Section Header */}
         <div className="text-center mb-16">
+          <p className="text-gray-500 text-body-sm mb-4">From intent to infrastructure — see the full pipeline below.</p>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}

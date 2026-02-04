@@ -124,12 +124,12 @@ const DocsPage: React.FC = () => {
             ) : (
               <article className="prose prose-lg prose-slate max-w-none 
                 prose-headings:font-bold prose-headings:tracking-tight prose-headings:text-[#1a1a2e] 
-                prose-h1:text-4xl prose-h1:mb-8
-                prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-6 prose-h2:border-b prose-h2:border-[#e5e7eb] prose-h2:pb-2
-                prose-p:text-[#4a4a5a] prose-p:leading-7 prose-p:mb-6
+                prose-h1:text-h1-lg prose-h1:mb-8
+                prose-h2:text-h2-lg prose-h2:mt-12 prose-h2:mb-6 prose-h2:border-b prose-h2:border-[#e5e7eb] prose-h2:pb-2
+                prose-p:text-[#4a4a5a] prose-p:text-body prose-p:leading-relaxed prose-p:mb-6
                 prose-a:text-[#7c3aed] prose-a:font-medium prose-a:no-underline hover:prose-a:underline
-                prose-code:text-[#7c3aed] prose-code:bg-[rgba(124,58,237,0.1)] prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-md prose-code:text-sm prose-code:before:content-none prose-code:after:content-none prose-code:border prose-code:border-[rgba(124,58,237,0.2)]
-                prose-pre:bg-[#1a1a2e] prose-pre:border prose-pre:border-[#e5e7eb] prose-pre:rounded-xl prose-pre:shadow-lg
+                prose-code:text-[#7c3aed] prose-code:bg-[rgba(124,58,237,0.1)] prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-md prose-code:text-body-sm prose-code:before:content-none prose-code:after:content-none prose-code:border prose-code:border-[rgba(124,58,237,0.2)]
+                prose-pre:bg-[#1a1a2e] prose-pre:border prose-pre:border-[#e5e7eb] prose-pre:rounded-xl prose-pre:shadow-lg prose-pre:px-6 prose-pre:py-4 prose-pre:max-w-full prose-pre:overflow-x-auto
                 prose-img:rounded-xl prose-img:shadow-md prose-img:border prose-img:border-[#e5e7eb]
                 prose-table:border prose-table:border-[#e5e7eb] prose-table:rounded-lg prose-table:overflow-hidden
                 prose-th:bg-[#f5f5f7] prose-th:text-[#1a1a2e] prose-th:p-4 prose-th:font-semibold

@@ -37,9 +37,18 @@ const KimiSection: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className="text-[#4a4a5a] text-lg mb-8 leading-relaxed font-light"
+              className="text-[#4a4a5a] text-lg mb-3 leading-relaxed font-light"
             >
               For massive documentation analysis and codebase refactoring, G-Agent taps into Kimi K2.5. Its ability to process millions of tokens losslessly ensures no detail is ever missed.
+            </motion.p>
+            <motion.p 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.15 }}
+              className="text-[#6b7280] text-body-sm mb-8"
+            >
+              Used in G-Rump for long-context docs, codebase analysis, and refactoring.
             </motion.p>
 
             <div className="grid grid-cols-2 gap-6">

@@ -43,12 +43,15 @@ const PricingPage: React.FC = () => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0 }}
-      className="pt-32 pb-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto bg-app min-h-screen"
+      className="pt-32 pb-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto bg-app min-h-screen"
     >
       <div className="text-center mb-16">
-        <h1 className="text-5xl font-bold tracking-tight text-[#1a1a2e] mb-6">Simple, Transparent Pricing</h1>
-        <p className="text-xl text-[#4a4a5a] max-w-2xl mx-auto">
-          Start for free, scale as you grow. No hidden fees for compute or bandwidth.
+        <h1 className="text-h2 md:text-h2-lg font-bold tracking-tight text-[#1a1a2e] mb-4">Simple, Transparent Pricing</h1>
+        <p className="text-body-lg text-[#4a4a5a] max-w-2xl mx-auto mb-2">
+          Start free. Scale when you&apos;re ready.
+        </p>
+        <p className="text-body-sm text-[#6b7280] max-w-xl mx-auto mb-6">
+          No hidden fees for compute or bandwidth.
         </p>
         
         <div className="flex items-center justify-center mt-10 gap-4">
@@ -91,9 +94,10 @@ const PricingPage: React.FC = () => {
                     <span className="text-[#6b7280]">/per user/month</span>
                 </div>
                 
-                <button className={`w-full py-3 rounded-xl font-bold mb-8 transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 ${plan.popular ? 'btn-primary focus:ring-[#7c3aed]' : 'btn-secondary focus:ring-[#7c3aed]'}`}>
+                <button className={`w-full py-3 rounded-xl font-bold mb-4 transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 min-h-[44px] ${plan.popular ? 'btn-primary focus:ring-[#7c3aed]' : 'btn-secondary focus:ring-[#7c3aed]'}`}>
                     {plan.button}
                 </button>
+                <p className="text-caption text-[#6b7280] mb-8">All plans include access to docs and community.</p>
                 
                 <ul className="space-y-4">
                     {plan.features.map(feature => (

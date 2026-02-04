@@ -55,6 +55,7 @@ const Downloads: React.FC = () => {
                   Native binaries for every platform. Single binary, zero dependencies. 
                   <br className="hidden md:block"/> Scale your infrastructure in minutes.
                </p>
+               <p className="text-gray-500 text-sm mt-3 max-w-xl mx-auto">Choose your platform or install via CLI below.</p>
             </motion.div>
          </div>
       </div>

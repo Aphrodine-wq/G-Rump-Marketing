@@ -42,11 +42,11 @@ const WaitlistSection: React.FC = () => {
   };
 
   return (
-    <section id="waitlist" className="py-24 bg-subtle">
+    <section id="waitlist" className="py-28 bg-subtle">
       <div className="max-w-xl mx-auto px-6 lg:px-8 text-center">
         <Logo size={64} className="mx-auto mb-6" />
-        <h2 className="text-3xl md:text-4xl font-bold text-[#1a1a2e] mb-4">Join the Beta</h2>
-        <p className="text-[#4a4a5a] mb-8">
+        <h2 className="text-h2 md:text-h2-lg font-bold text-[#1a1a2e] mb-4">Join the Beta</h2>
+        <p className="text-[#4a4a5a] text-body mb-8">
           Be among the first to experience the future of product development.
         </p>
         {status === 'success' ? (
@@ -73,7 +73,7 @@ const WaitlistSection: React.FC = () => {
           </form>
         )}
         {status === 'error' && <p className="mt-3 text-sm text-red-600">{message}</p>}
-        <p className="text-[#6b7280] text-xs mt-4">Join 500+ product builders. No spam, unsubscribe anytime.</p>
+        <p className="text-[#6b7280] text-caption mt-4">We&apos;ll only email you about product updates. Unsubscribe anytime.</p>
       </div>
     </section>
   );

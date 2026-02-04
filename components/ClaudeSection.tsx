@@ -37,9 +37,18 @@ const ClaudeSection: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className="text-[#4a4a5a] text-lg mb-8 leading-relaxed font-light"
+              className="text-[#4a4a5a] text-lg mb-3 leading-relaxed font-light"
             >
               When complex architectural decisions need to be made, G-Agent consults Claude Opus 4.5. Its superior reasoning capabilities allow for deep understanding of system design patterns and edge cases.
+            </motion.p>
+            <motion.p 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.15 }}
+              className="text-[#6b7280] text-body-sm mb-8"
+            >
+              Used in G-Rump for complex reasoning, architecture decisions, and design review.
             </motion.p>
 
             <div className="grid grid-cols-2 gap-6">

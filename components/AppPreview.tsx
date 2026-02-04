@@ -21,7 +21,7 @@ const AppPreview: React.FC = () => {
   }, []);
 
   return (
-    <section id="demo" className="py-12 px-6" ref={sectionRef}>
+    <section id="demo" className="py-16 px-6 bg-app" ref={sectionRef}>
       <div className="max-w-5xl mx-auto reveal">
         <div className="code-window">
           <div className="flex items-center gap-2 px-4 py-3 border-b border-white/10">
@@ -48,6 +48,9 @@ const AppPreview: React.FC = () => {
             </div>
           </div>
         </div>
+        <p className="text-center text-[#4a4a5a] text-body-sm mt-6 reveal">
+          From natural language to architecture and code in one flow.
+        </p>
       </div>
     </section>
   );

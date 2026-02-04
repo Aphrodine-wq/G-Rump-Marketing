@@ -88,6 +88,7 @@ const PerformanceChart: React.FC = () => {
         
         {/* Header */}
         <div className="text-center mb-24">
+           <p className="text-gray-500 text-sm mb-4">How G-Rump stacks up on latency, throughput, and cold start.</p>
            <motion.div 
              initial={{ opacity: 0, y: 20 }}
              whileInView={{ opacity: 1, y: 0 }}

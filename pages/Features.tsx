@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Zap, Shield, Users, Database, Terminal, Code, Cpu, Globe } from 'lucide-react';
 
@@ -8,6 +9,7 @@ const FeaturesPage: React.FC = () => {
       icon: Zap,
       title: 'Rust-Powered Compilation',
       description: 'Our core engine is written in Rust, delivering 18x faster build times than Webpack or Vite. It parses natural language intent into executable ASTs in milliseconds.',
+      sub: 'Intent → AST in milliseconds. No bundler tax.',
       color: 'text-orange-500',
       bg: 'bg-orange-50'
     },
@@ -15,6 +17,7 @@ const FeaturesPage: React.FC = () => {
       icon: Users,
       title: 'Swarm Intelligence',
       description: 'Deploy a squad of 12 specialized AI agents. The Architect plans, the Frontend Dev codes Svelte, and the QA Bot runs Cypress tests in parallel.',
+      sub: 'Architect, Frontend, QA — coordinated in one run.',
       color: 'text-purple-600',
       bg: 'bg-purple-50'
     },
@@ -22,6 +25,7 @@ const FeaturesPage: React.FC = () => {
       icon: Shield,
       title: 'Enterprise Guardrails',
       description: 'SOC2 Type II compliant out of the box. Automated PII redaction, secret scanning, and role-based access control (RBAC) for every generated service.',
+      sub: 'PII redaction, secret scanning, RBAC included.',
       color: 'text-blue-600',
       bg: 'bg-blue-50'
     },
@@ -29,6 +33,7 @@ const FeaturesPage: React.FC = () => {
       icon: Database,
       title: 'Smart Persistence',
       description: 'Auto-provisioned PostgreSQL and Redis clusters. G-Rump handles migrations, backups, and connection pooling so you never touch a config file.',
+      sub: 'Migrations, backups, pooling — zero config.',
       color: 'text-green-600',
       bg: 'bg-green-50'
     },
@@ -36,6 +41,7 @@ const FeaturesPage: React.FC = () => {
       icon: Terminal,
       title: 'CLI First',
       description: 'Love the terminal? So do we. Control your entire infrastructure with the `g-rump` CLI. Pipe outputs, script workflows, and integrate with CI/CD.',
+      sub: 'Pipe, script, and plug into CI/CD.',
       color: 'text-gray-800',
       bg: 'bg-gray-100'
     },
@@ -43,6 +49,7 @@ const FeaturesPage: React.FC = () => {
       icon: Globe,
       title: 'Global Edge Network',
       description: 'Deploy to 35 regions instantly. Your app logic runs close to your users with automatic failover and anycast routing.',
+      sub: '35 regions, failover, anycast.',
       color: 'text-pink-600',
       bg: 'bg-pink-50'
     }
@@ -53,14 +60,17 @@ const FeaturesPage: React.FC = () => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0 }}
-      className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto bg-app min-h-screen"
+      className="pt-32 pb-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto bg-app min-h-screen"
     >
       <div className="text-center mb-20">
-        <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-[#1a1a2e] mb-6">
+        <h1 className="text-display md:text-display-lg font-bold tracking-tight text-[#1a1a2e] mb-6">
           Under the Hood
         </h1>
-        <p className="text-xl text-[#4a4a5a] max-w-3xl mx-auto leading-relaxed">
+        <p className="text-body-lg text-[#4a4a5a] max-w-3xl mx-auto leading-relaxed mb-3">
           G-Rump isn&apos;t just a wrapper. It&apos;s a complete reimagining of the software development lifecycle, powered by bare-metal performance and agentic AI.
+        </p>
+        <p className="text-body-sm text-[#6b7280] max-w-2xl mx-auto">
+          From intent parsing to deployment — Rust, agents, and edge. <Link to="/docs/ARCHITECTURE" className="text-[#7c3aed] hover:underline font-medium">Read the docs</Link>.
         </p>
       </div>
 
@@ -77,10 +87,11 @@ const FeaturesPage: React.FC = () => {
             <div className="icon-box w-14 h-14 bg-[#7c3aed] rounded-xl flex items-center justify-center mb-6">
               <f.icon size={28} className="text-white" />
             </div>
-            <h3 className="text-2xl font-bold text-[#1a1a2e] mb-4">{f.title}</h3>
-            <p className="text-[#4a4a5a] leading-relaxed">
+            <h3 className="text-h2 font-bold text-[#1a1a2e] mb-4">{f.title}</h3>
+            <p className="text-[#4a4a5a] text-body leading-relaxed mb-2">
               {f.description}
             </p>
+            <p className="text-[#6b7280] text-body-sm">{f.sub}</p>
           </motion.div>
         ))}
       </div>

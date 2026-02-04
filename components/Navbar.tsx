@@ -12,12 +12,12 @@ const Navbar: React.FC = () => {
   }, [location.pathname]);
 
   const navLinks = [
-    { name: 'Features', href: '/#features' },
-    { name: 'How it Works', href: '/#how-it-works' },
-    { name: 'Docs', href: '/docs' },
-    { name: 'Workflow', href: '/workflow' },
-    { name: 'Pricing', href: '/pricing' },
-    { name: 'Downloads', href: '/downloads' },
+    { name: 'Features', href: '/#features', path: '/' },
+    { name: 'How it Works', href: '/#how-it-works', path: '/' },
+    { name: 'Docs', href: '/docs', path: '/docs' },
+    { name: 'Workflow', href: '/workflow', path: '/workflow' },
+    { name: 'Pricing', href: '/pricing', path: '/pricing' },
+    { name: 'Downloads', href: '/downloads', path: '/downloads' },
   ];
 
   return (
@@ -44,15 +44,15 @@ const Navbar: React.FC = () => {
                 <Link
                   key={link.name}
                   to={link.href}
-                  className="nav-link text-sm font-medium"
-                  aria-current={location.pathname === link.href ? 'page' : undefined}
+                  className="nav-link text-body-sm font-medium py-2 min-h-[44px] flex items-center"
+                  aria-current={location.pathname === link.path ? 'page' : undefined}
                 >
                   {link.name}
                 </Link>
               ))}
               <Link
                 to="/#waitlist"
-                className="btn-primary px-5 py-2 rounded-lg text-sm font-medium"
+                className="btn-primary px-6 py-3 rounded-xl text-body-sm font-semibold min-h-[44px] flex items-center"
               >
                 Join Waitlist
               </Link>
@@ -60,7 +60,7 @@ const Navbar: React.FC = () => {
 
             <button
               type="button"
-              className="md:hidden p-2 text-[#4a4a5a] hover:text-[#7c3aed] rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7c3aed]"
+              className="md:hidden min-w-[44px] min-h-[44px] p-2 flex items-center justify-center text-[#4a4a5a] hover:text-[#7c3aed] rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7c3aed] focus-visible:ring-offset-2"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-expanded={mobileMenuOpen}
               aria-controls="mobile-menu"
@@ -75,13 +75,16 @@ const Navbar: React.FC = () => {
           <div
             id="mobile-menu"
             className="md:hidden absolute top-16 left-0 right-0 bg-white border-b border-[#e5e7eb] shadow-lg py-4 px-6"
+            role="dialog"
+            aria-label="Mobile menu"
           >
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-1">
               {navLinks.map((link) => (
                 <Link
                   key={link.name}
                   to={link.href}
-                  className="nav-link text-sm font-medium py-2"
+                  className="nav-link text-body-sm font-medium min-h-[44px] flex items-center px-2 rounded-lg"
+                  aria-current={location.pathname === link.path ? 'page' : undefined}
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   {link.name}
@@ -89,7 +92,7 @@ const Navbar: React.FC = () => {
               ))}
               <Link
                 to="/#waitlist"
-                className="btn-primary px-5 py-3 rounded-lg text-sm font-medium text-center mt-2"
+                className="btn-primary px-6 py-3 rounded-xl text-body-sm font-semibold text-center min-h-[44px] flex items-center justify-center mt-2"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Join Waitlist

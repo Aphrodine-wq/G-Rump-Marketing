@@ -37,9 +37,18 @@ const NvidiaSection: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className="text-[#4a4a5a] text-lg mb-8 leading-relaxed font-light"
+              className="text-[#4a4a5a] text-lg mb-3 leading-relaxed font-light"
             >
               G-Rump leverages the massive parallelism of NVIDIA GPUs and the cutting-edge NemoTRON-4 340B model to parse architectural intent with unprecedented accuracy and speed.
+            </motion.p>
+            <motion.p 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.15 }}
+              className="text-[#6b7280] text-body-sm mb-8"
+            >
+              Used in G-Rump for high-throughput intent parsing and codegen on GPU.
             </motion.p>
 
             <div className="grid grid-cols-2 gap-6">

@@ -5,18 +5,22 @@ const bullets = [
   {
     title: 'Natural Language Input',
     text: "No coding required. Describe your product like you're talking to a colleague.",
+    extra: 'Ship and Codegen start from a short description; Chat is always conversational.',
   },
   {
     title: 'Intent-Driven Architecture',
     text: 'Our Rust-powered intent compiler extracts requirements and generates optimal system designs.',
+    extra: 'Requirements become structured intent, then architecture and specs.',
   },
   {
     title: 'Multi-Provider AI Router',
     text: 'Intelligently routes between NVIDIA NIM/Nemotron, OpenRouter, Groq, and Ollama.',
+    extra: 'Use the best model for each task without locking into one vendor.',
   },
   {
     title: 'Production-Ready Code',
     text: 'Not prototypes. Real, tested code with error handling and best practices.',
+    extra: 'Deploy to your stack: React, Node.js, databases, and APIs.',
   },
 ];
 
@@ -41,16 +45,16 @@ const ModesAndFlows: React.FC = () => {
   }, []);
 
   return (
-    <section id="how-it-works" ref={sectionRef} className="py-24 bg-app">
+    <section id="how-it-works" ref={sectionRef} className="py-28 bg-app">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           <div className="reveal">
-            <h2 className="text-3xl md:text-4xl font-bold text-[#1a1a2e] mb-6">
+            <h2 className="text-h2 md:text-h2-lg font-bold text-[#1a1a2e] mb-6">
               Built for Product Managers,
               <br />
               Not Just Engineers
             </h2>
-            <p className="text-[#4a4a5a] mb-6 text-sm">
+            <p className="text-[#4a4a5a] mb-6 text-body-sm">
               Three flows: <strong className="text-[#1a1a2e]">Chat</strong> (conversational AI with tools), <strong className="text-[#1a1a2e]">Ship</strong> (describe → design → spec → code), and <strong className="text-[#1a1a2e]">Codegen</strong> (PRD + architecture → multi-agent code). See <Link to="/docs/HOW_IT_WORKS" className="text-[#7c3aed] hover:underline">How It Works</Link> in the docs.
             </p>
             <div className="space-y-5">
@@ -59,7 +63,8 @@ const ModesAndFlows: React.FC = () => {
                   <div className="w-2 h-2 rounded-full bg-[#7c3aed] flex-shrink-0 mt-2 group-hover:scale-150 transition-transform" />
                   <div>
                     <h4 className="font-semibold text-[#1a1a2e] mb-1">{b.title}</h4>
-                    <p className="text-[#4a4a5a] text-sm">{b.text}</p>
+                    <p className="text-[#4a4a5a] text-body-sm">{b.text}</p>
+                    <p className="text-[#6b7280] text-body-sm mt-1">{b.extra}</p>
                   </div>
                 </div>
               ))}

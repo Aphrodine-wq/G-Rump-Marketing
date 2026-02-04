@@ -27,7 +27,7 @@ const Hero: React.FC = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative pt-32 pb-20 lg:pt-40 lg:pb-32 overflow-hidden bg-app"
+      className="relative pt-32 pb-28 lg:pt-40 lg:pb-32 overflow-hidden bg-app"
     >
       <div
         className="absolute inset-0 opacity-30"
@@ -45,12 +45,15 @@ const Hero: React.FC = () => {
             <span className="pulse-dot" />
             Now in Beta — Join 500+ Product Builders
           </div>
-          <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6 text-[#1a1a2e] leading-tight reveal">
+          <h1 className="text-display md:text-display-lg font-bold tracking-tight mb-6 text-[#1a1a2e] reveal">
             The AI Product
             <span className="text-gradient block">Operating System</span>
           </h1>
-          <p className="text-lg md:text-xl text-[#4a4a5a] max-w-2xl mx-auto mb-10 leading-relaxed reveal stagger-1">
+          <p className="text-body-lg md:text-xl text-[#4a4a5a] max-w-2xl mx-auto mb-3 reveal stagger-1">
             Turn product ideas into working code. Built for product managers, founders, and teams who ship.
+          </p>
+          <p className="text-body text-[#6b7280] max-w-2xl mx-auto mb-10 reveal stagger-1">
+            Chat, Ship, and Codegen — one platform.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center reveal stagger-2">
             <Link to="/#waitlist" className="btn-primary px-8 py-4 rounded-xl font-semibold text-base text-center">
@@ -71,7 +74,7 @@ const Hero: React.FC = () => {
               </a>
             )}
           </div>
-          <p className="mt-6 text-[#6b7280] text-sm reveal stagger-3">
+          <p className="mt-6 text-[#6b7280] text-body-sm reveal stagger-3">
             Free during beta · No credit card required
           </p>
         </div>

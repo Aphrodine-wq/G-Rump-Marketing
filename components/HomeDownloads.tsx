@@ -7,9 +7,9 @@ import { Button } from './ui/Button';
 const HomeDownloads: React.FC = () => {
   return (
     <section className="bg-gradient-to-b from-white via-white to-purple-50/40">
-      <div className="mx-auto max-w-7xl px-6 py-20 sm:py-28 lg:px-8">
+      <div className="mx-auto max-w-[90rem] px-6 py-12 sm:py-20 lg:py-28 sm:px-8 lg:px-10">
         <motion.div
-          className="relative overflow-hidden rounded-3xl border border-purple-100 bg-white/80 px-8 py-20 text-center shadow-lg backdrop-blur-sm sm:px-16"
+          className="relative overflow-hidden rounded-3xl border border-purple-100 bg-white/80 px-6 py-16 text-center shadow-lg backdrop-blur-sm sm:px-12 sm:py-20"
           initial={{ opacity: 0, y: 45 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.4 }}
@@ -28,7 +28,7 @@ const HomeDownloads: React.FC = () => {
             </p>
           </div>
 
-          <div className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row">
+          <div className="mt-12 flex flex-col items-center justify-center gap-6 sm:flex-row">
             <Button asChild className="min-w-[220px]">
               <Link to="/downloads">
                 <Download size={18} />

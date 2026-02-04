@@ -12,7 +12,7 @@ const WorkflowPage: React.FC = () => {
       >
         <div className="relative overflow-hidden py-28 border-b border-purple-100/70">
           <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,#ede9fe,transparent_65%)]" aria-hidden="true" />
-          <div className="max-w-6xl mx-auto px-6 text-center">
+          <div className="max-w-6xl mx-auto px-6 text-center sm:px-8 lg:px-10">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -50,7 +50,7 @@ const WorkflowPage: React.FC = () => {
         </div>
         
         {/* Clean Workflow Section */}
-        <div className="max-w-7xl mx-auto px-6 py-16">
+        <div className="max-w-[90rem] mx-auto px-6 py-16 sm:px-8 lg:px-10">
           <ModesAndFlows />
         </div>
       </motion.div>

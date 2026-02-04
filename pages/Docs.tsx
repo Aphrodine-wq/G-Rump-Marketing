@@ -45,8 +45,8 @@ const DocsPage: React.FC = () => {
   const title = slug.split('/').pop()?.replace(/_/g, ' ').replace(/-/g, ' ') || 'Documentation';
 
   return (
-    <div className="pt-20 min-h-screen bg-app text-[#1a1a2e] font-sans">
-      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="pt-24 min-h-screen bg-app text-[#1a1a2e] font-sans">
+      <div className="max-w-[90rem] mx-auto px-6 sm:px-8 lg:px-10">
         <div className="flex flex-col md:flex-row md:gap-12 lg:gap-16">
           
           {/* Mobile Sidebar Toggle */}
@@ -64,7 +64,7 @@ const DocsPage: React.FC = () => {
           </div>
 
           {/* Sidebar (Desktop) */}
-          <aside className="hidden md:block w-64 shrink-0 border-r border-[#e5e7eb] sticky top-24 h-[calc(100vh-6rem)] overflow-y-auto pr-6 custom-scrollbar">
+          <aside className="hidden md:block w-64 shrink-0 border-r border-[#e5e7eb] sticky top-14 h-[calc(100vh-3.5rem)] overflow-y-auto pr-6 custom-scrollbar">
              <div className="relative mb-8 group">
                  <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#6b7280] group-focus-within:text-[#7c3aed] transition-colors" />
                  <input 

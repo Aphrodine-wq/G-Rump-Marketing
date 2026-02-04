@@ -34,8 +34,8 @@ const Navbar: React.FC = () => {
         role="navigation"
         aria-label="Main navigation"
       >
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
+        <div className="max-w-[90rem] mx-auto px-6 sm:px-8 lg:px-10">
+          <div className="flex justify-between items-center h-14">
             <Link
               to="/"
               className="flex items-center gap-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7c3aed] focus-visible:ring-offset-2 rounded-lg"
@@ -82,7 +82,7 @@ const Navbar: React.FC = () => {
         {mobileMenuOpen && (
           <div
             id="mobile-menu"
-            className="md:hidden absolute top-16 left-0 right-0 bg-white border-b border-[#e5e7eb] shadow-lg py-4 px-6"
+            className="md:hidden absolute top-14 left-0 right-0 bg-white border-b border-[#e5e7eb] shadow-lg py-4 px-6"
             role="dialog"
             aria-label="Mobile menu"
           >

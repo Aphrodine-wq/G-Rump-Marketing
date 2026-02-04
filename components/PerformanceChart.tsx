@@ -17,7 +17,7 @@ const ComparisonBar = ({ label, traditional, grump, factor, icon: Icon, isVisibl
     </div>
     
     {/* Comparison Visual */}
-    <div className="space-y-4">
+    <div className="space-y-3">
        {/* Traditional */}
        <div className="flex items-center gap-4">
           <div className="w-24 text-xs text-gray-500 font-mono text-right uppercase tracking-wider">Legacy</div>
@@ -84,7 +84,7 @@ const PerformanceChart: React.FC = () => {
       {/* Background Decor */}
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-purple-900 to-transparent"></div>
       
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[90rem] mx-auto px-6 sm:px-8 lg:px-10">
         
         {/* Header */}
         <div className="text-center mb-24">

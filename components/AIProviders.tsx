@@ -31,8 +31,8 @@ const itemVariants = {
 
 const AIProviders: React.FC = () => {
   return (
-    <section id="ai-providers" className="bg-white py-20 sm:py-28">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+    <section id="ai-providers" className="bg-white py-12 sm:py-20 lg:py-28">
+      <div className="mx-auto max-w-[90rem] px-6 sm:px-8 lg:px-10">
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -43,10 +43,10 @@ const AIProviders: React.FC = () => {
           <span className="inline-flex items-center gap-2 rounded-full border border-purple-200 bg-purple-50 px-4 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-purple-600">
             Multi-provider coverage
           </span>
-          <h2 className="mt-4 text-[2rem] font-semibold text-[#1a1a2e]">
+          <h2 className="mt-6 text-[2rem] font-semibold text-[#1a1a2e]">
             Powered by the world’s best AI foundation models.
           </h2>
-          <p className="mt-3 text-base text-gray-600 sm:text-lg">
+          <p className="mt-6 text-base text-gray-600 sm:text-lg">
             Mix and match providers per workload—pricing, latency, or capability. G-Rump orchestrates them seamlessly.
           </p>
         </motion.div>
@@ -61,7 +61,7 @@ const AIProviders: React.FC = () => {
           {providers.map((provider) => (
             <motion.div
               key={provider.name}
-              className="flex items-center justify-center rounded-2xl border border-purple-100 bg-white/80 px-6 py-6 text-center shadow-sm transition hover:-translate-y-1 hover:border-purple-200 hover:shadow-lg"
+              className="flex items-center justify-center rounded-2xl border border-purple-100 bg-white/80 px-8 py-8 text-center shadow-sm transition hover:-translate-y-1 hover:border-purple-200 hover:shadow-lg"
               variants={itemVariants}
             >
               <div className="text-base font-semibold tracking-tight text-gray-600 hover:text-purple-500">

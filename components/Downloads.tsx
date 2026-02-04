@@ -56,7 +56,7 @@ const Downloads: React.FC = () => {
       {/* Hero Section */}
       <div className="relative overflow-hidden pb-16 pt-10">
         <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,#ede9fe,transparent_65%)]" aria-hidden="true" />
-        <div className="max-w-5xl mx-auto px-6 text-center">
+        <div className="max-w-5xl mx-auto px-6 text-center sm:px-8 lg:px-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -97,7 +97,7 @@ const Downloads: React.FC = () => {
         </div>
       </div>
 
-      <div className="mx-auto max-w-7xl px-6 pb-32">
+      <div className="mx-auto max-w-[90rem] px-6 pb-32 sm:px-8 lg:px-10">
         <div className="mx-auto flex flex-col gap-6 pb-20 lg:max-w-5xl lg:flex-row">
           <DownloadCard icon={Apple} os="macOS" version="v2.4.0" arch="Universal" delay={0.1} />
           <DownloadCard icon={Monitor} os="Windows" version="v2.4.0" arch="x64 / ARM64" delay={0.2} />

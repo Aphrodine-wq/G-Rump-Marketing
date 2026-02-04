@@ -44,7 +44,7 @@ const PricingPage: React.FC = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0 }}
-        className="pt-32 pb-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto"
+        className="pt-24 pb-20 px-6 sm:px-8 lg:px-10 lg:pt-32 lg:pb-28 max-w-[90rem] mx-auto"
       >
         <div className="text-center mb-16">
           <motion.div
@@ -100,7 +100,7 @@ const PricingPage: React.FC = () => {
           </motion.div>
         </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10 items-start">
         {plans.map((plan, i) => (
             <motion.div
                 key={plan.name}
@@ -109,7 +109,7 @@ const PricingPage: React.FC = () => {
                 transition={{ delay: i * 0.15, duration: 0.6, ease: [0.16, 1, 0.3, 1] as const }}
                 viewport={{ once: true }}
                 whileHover={{ y: -8, transition: { duration: 0.2 } }}
-                className={`relative p-8 rounded-3xl border bg-white/80 backdrop-blur-sm transition-all ${
+                className={`relative p-8 rounded-3xl border bg-white/80 backdrop-blur-sm transition-all sm:p-10 ${
                   plan.popular 
                     ? 'border-purple-200 shadow-2xl shadow-purple-100/50 scale-105 z-10' 
                     : 'border-purple-100/70 shadow-lg hover:border-purple-200 hover:shadow-xl'
@@ -143,7 +143,7 @@ const PricingPage: React.FC = () => {
                 </button>
                 <p className="text-caption text-[#6b7280] mb-8 text-center">All plans include access to docs and community.</p>
                 
-                <ul className="space-y-4">
+                <ul className="space-y-3">
                     {plan.features.map(feature => (
                         <li key={feature} className="flex items-center gap-3 text-sm text-[#4a4a5a]">
                             <div className="w-5 h-5 rounded-full bg-green-50 flex items-center justify-center shrink-0">

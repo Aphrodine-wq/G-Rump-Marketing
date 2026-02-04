@@ -60,7 +60,7 @@ const FeaturesPage: React.FC = () => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0 }}
-      className="pt-32 pb-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto bg-app min-h-screen"
+      className="pt-24 pb-20 px-6 sm:px-8 lg:px-10 lg:pt-32 lg:pb-28 max-w-[90rem] mx-auto bg-app min-h-screen"
     >
       <div className="text-center mb-20">
         <h1 className="text-display md:text-display-lg font-bold tracking-tight text-[#1a1a2e] mb-6">
@@ -134,7 +134,7 @@ const FeaturesPage: React.FC = () => {
                         <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
                         <div className="w-3 h-3 rounded-full bg-green-500"></div>
                     </div>
-                    <div className="space-y-2 opacity-90">
+                    <div className="space-y-3 opacity-90">
                         <p className="text-green-400">➜ g-rump analyze --deep</p>
                         <p className="text-gray-500">[INFO] Loading core engine v2.4.0</p>
                         <p className="text-blue-400">[PIPELINE] Stage 1: Tokenization (0.002s)</p>

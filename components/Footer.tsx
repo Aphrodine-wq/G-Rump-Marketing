@@ -31,9 +31,9 @@ const renderSocialLink = (
 
 const Footer: React.FC = () => {
   return (
-    <footer className="border-t border-[#e5e7eb] bg-white py-16" role="contentinfo">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="mb-12 grid grid-cols-2 gap-8 md:grid-cols-4">
+    <footer className="border-t border-[#e5e7eb] bg-white py-20 lg:py-24" role="contentinfo">
+      <div className="mx-auto max-w-[90rem] px-6 sm:px-8 lg:px-10">
+        <div className="mb-16 grid grid-cols-2 gap-10 md:grid-cols-4 md:gap-12">
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
             <Link
@@ -50,7 +50,7 @@ const Footer: React.FC = () => {
           {/* Product */}
           <div>
             <h4 className="text-body-sm font-semibold text-[#1a1a2e]">Product</h4>
-            <ul className="mt-4 space-y-3">
+            <ul className="mt-6 space-y-4">
               <li>
                 <Link
                   to="/#how-it-works"
@@ -81,7 +81,7 @@ const Footer: React.FC = () => {
           {/* Resources */}
           <div>
             <h4 className="text-body-sm font-semibold text-[#1a1a2e]">Resources</h4>
-            <ul className="mt-4 space-y-3">
+            <ul className="mt-6 space-y-4">
               <li>
                 <Link
                   to="/docs"
@@ -98,7 +98,7 @@ const Footer: React.FC = () => {
           {/* Company */}
           <div>
             <h4 className="text-body-sm font-semibold text-[#1a1a2e]">Company</h4>
-            <ul className="mt-4 space-y-3">
+            <ul className="mt-6 space-y-4">
               <li>{renderSocialLink('Twitter / X', SOCIAL_LINKS.twitter)}</li>
               <li>
                 <Link
@@ -121,7 +121,7 @@ const Footer: React.FC = () => {
         </div>
 
         {/* Bottom */}
-        <div className="border-t border-[#e5e7eb] pt-8">
+        <div className="border-t border-[#e5e7eb] pt-10">
           <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
             <p className="text-caption text-[#6b7280]">© 2026 G-Rump. All rights reserved.</p>
             <div className="flex items-center gap-4">

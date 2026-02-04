@@ -235,7 +235,7 @@ const TelemetryPanel = ({ activeNode }: { activeNode: string | null }) => {
 
       <div className="flex-1 overflow-hidden relative">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/20 pointer-events-none" />
-        <div className="space-y-2">
+        <div className="space-y-3">
           {logs.map((log, i) => (
             <motion.div
               key={i}
@@ -296,7 +296,7 @@ const SystemArchitecture: React.FC = () => {
       {/* Background Grid */}
       <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:50px_50px] [mask-image:radial-gradient(ellipse_at_center,black_40%,transparent_100%)] pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="max-w-[90rem] mx-auto px-6 sm:px-8 lg:px-10 relative z-10">
 
         {/* Section Header */}
         <div className="text-center mb-16">

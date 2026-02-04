@@ -26,7 +26,7 @@ const Hero: React.FC = () => {
         transition={{ duration: 14, repeat: Infinity, ease: 'easeInOut' }}
       />
 
-      <div className="relative mx-auto flex max-w-7xl flex-col items-center px-6 pb-32 pt-36 text-center sm:px-8 lg:pt-44">
+      <div className="relative mx-auto flex max-w-[90rem] flex-col items-center px-6 pb-16 pt-24 text-center sm:px-8 sm:pb-20 lg:px-10 lg:pt-32">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -73,7 +73,7 @@ const Hero: React.FC = () => {
         </motion.p>
 
         <motion.div
-          className="mt-10 flex flex-col gap-4 sm:flex-row"
+          className="mt-10 flex flex-col gap-6 sm:flex-row"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.35 }}
@@ -121,7 +121,7 @@ const Hero: React.FC = () => {
             className="hidden h-10 w-px bg-gradient-to-b from-purple-100 via-purple-300/60 to-purple-100 sm:block"
             aria-hidden="true"
           />
-          <ul className="space-y-2 text-sm text-gray-500">
+          <ul className="space-y-3 text-sm text-gray-500">
             <li>• Multi-agent orchestration for complex builds</li>
             <li>• Production-ready code reviews baked in</li>
             <li>• Export to GitHub, Docker, and your cloud of choice</li>

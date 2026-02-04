@@ -49,8 +49,8 @@ const itemVariants = {
 
 const TrustedBy: React.FC = () => {
   return (
-    <section className="bg-transparent py-16 sm:py-20">
-      <div className="mx-auto max-w-6xl rounded-3xl border border-purple-100/70 bg-white/80 px-6 py-12 shadow-sm backdrop-blur-sm sm:px-10 lg:px-16">
+    <section className="bg-transparent py-20 sm:py-24">
+      <div className="mx-auto max-w-6xl rounded-3xl border border-purple-100/70 bg-white/80 px-6 py-16 shadow-sm backdrop-blur-sm sm:px-10 lg:px-16">
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -60,12 +60,12 @@ const TrustedBy: React.FC = () => {
           <h2 className="text-center text-sm font-semibold uppercase tracking-[0.2em] text-purple-500">
             Built for modern stacks
           </h2>
-          <p className="mt-3 text-center text-lg font-medium text-gray-500">
+          <p className="mt-6 text-center text-lg font-medium text-gray-500">
             Works seamlessly with the tools you already use
           </p>
         </motion.div>
         <motion.div
-          className="mx-auto mt-10 grid max-w-3xl grid-cols-2 items-center gap-x-6 gap-y-8 sm:grid-cols-3 lg:max-w-4xl"
+          className="mx-auto mt-16 grid max-w-3xl grid-cols-2 items-center gap-x-6 gap-y-8 sm:grid-cols-3 lg:max-w-4xl"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.3 }}

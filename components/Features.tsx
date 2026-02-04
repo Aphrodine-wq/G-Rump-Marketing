@@ -61,8 +61,8 @@ const cardVariants = {
 
 const Features: React.FC = () => {
   return (
-    <section id="features" className="bg-gradient-to-b from-white to-purple-50/40 py-20 sm:py-28">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+    <section id="features" className="bg-gradient-to-b from-white to-purple-50/40 py-12 sm:py-20 lg:py-28">
+      <div className="mx-auto max-w-[90rem] px-6 sm:px-8 lg:px-10">
         <motion.div
           className="mx-auto max-w-2xl text-center"
           initial={{ opacity: 0, y: 30 }}
@@ -73,7 +73,7 @@ const Features: React.FC = () => {
           <span className="inline-flex items-center gap-2 rounded-full border border-purple-200 bg-purple-50 px-4 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-purple-600">
             End-to-end workflow
           </span>
-          <h2 className="mt-4 text-[2.5rem] font-bold tracking-tight text-[#1a1a2e] sm:text-[2.75rem]">
+          <h2 className="mt-6 text-[2.5rem] font-bold tracking-tight text-[#1a1a2e] sm:text-[2.75rem]">
             Everything you need to ship—faster than ever.
           </h2>
           <p className="mt-6 text-lg text-gray-600 sm:text-xl">
@@ -82,7 +82,7 @@ const Features: React.FC = () => {
         </motion.div>
 
         <motion.div
-          className="mx-auto mt-16 grid max-w-6xl grid-cols-1 gap-8 md:grid-cols-3"
+          className="mx-auto mt-20 grid max-w-6xl grid-cols-1 gap-8 md:grid-cols-3"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -92,7 +92,7 @@ const Features: React.FC = () => {
             <motion.div
               key={feature.title}
               variants={cardVariants}
-              className="relative flex h-full flex-col gap-5 rounded-3xl border border-purple-100 bg-white/80 p-8 shadow-lg backdrop-blur-sm transition hover:-translate-y-2 hover:border-purple-200 hover:shadow-xl"
+              className="relative flex h-full flex-col gap-5 rounded-3xl border border-purple-100 bg-white/80 p-8 shadow-lg backdrop-blur-sm transition hover:-translate-y-2 hover:border-purple-200 hover:shadow-xl sm:p-10"
             >
               <div className="w-fit rounded-2xl border border-purple-100 bg-purple-50/80 p-3 text-purple-600 shadow-inner">
                 <feature.icon size={22} />

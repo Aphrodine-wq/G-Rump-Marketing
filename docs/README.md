@@ -94,7 +94,6 @@ New to G-Rump? Start here:
 
 - [FAQ.md](./FAQ.md) - Frequently asked questions
 - [TROUBLESHOOTING.md](./TROUBLESHOOTING.md) - Troubleshooting guide
-- [KNOWN_ISSUES.md](./KNOWN_ISSUES.md) - Known limitations
 
 ### 📦 Launch & Releases
 

@@ -41,8 +41,9 @@ const DocsSidebar: React.FC<{ onCloseMobile?: () => void }> = ({ onCloseMobile }
       items: [
         { label: 'Architecture', to: '/docs/ARCHITECTURE' },
         { label: 'API Reference', to: '/docs/API' },
-        { label: 'Agent System', to: '/docs/AGENT_SYSTEM' },
+        { label: 'Agent System (G-Agent)', to: '/docs/AGENT_SYSTEM' },
         { label: 'Development', to: '/docs/DEVELOPMENT' },
+        { label: 'Testing', to: '/docs/TESTING' },
         { label: 'Contributing', to: '/docs/legal/CONTRIBUTING' },
       ],
     },
@@ -66,6 +67,13 @@ const DocsSidebar: React.FC<{ onCloseMobile?: () => void }> = ({ onCloseMobile }
         { label: 'Integrations', to: '/docs/INTEGRATIONS' },
         { label: 'Backends', to: '/docs/BACKENDS' },
         { label: 'Intent RAG Fusion', to: '/docs/INTENT_RAG_FUSION' },
+      ],
+    },
+    {
+      title: 'Planning & Roadmap',
+      icon: FileText,
+      items: [
+        { label: 'Roadmap', to: '/docs/ROADMAP' },
       ],
     },
     {

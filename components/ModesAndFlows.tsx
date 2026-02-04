@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 
 const bullets = [
   {
@@ -11,7 +12,7 @@ const bullets = [
   },
   {
     title: 'Multi-Provider AI Router',
-    text: 'Intelligently routes between NVIDIA NIM, Groq, OpenRouter, and Together AI.',
+    text: 'Intelligently routes between NVIDIA NIM/Nemotron, OpenRouter, Groq, and Ollama.',
   },
   {
     title: 'Production-Ready Code',
@@ -49,6 +50,9 @@ const ModesAndFlows: React.FC = () => {
               <br />
               Not Just Engineers
             </h2>
+            <p className="text-[#4a4a5a] mb-6 text-sm">
+              Three flows: <strong className="text-[#1a1a2e]">Chat</strong> (conversational AI with tools), <strong className="text-[#1a1a2e]">Ship</strong> (describe → design → spec → code), and <strong className="text-[#1a1a2e]">Codegen</strong> (PRD + architecture → multi-agent code). See <Link to="/docs/HOW_IT_WORKS" className="text-[#7c3aed] hover:underline">How It Works</Link> in the docs.
+            </p>
             <div className="space-y-5">
               {bullets.map((b) => (
                 <div key={b.title} className="flex gap-4 group">

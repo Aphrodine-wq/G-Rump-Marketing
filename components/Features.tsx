@@ -1,28 +1,21 @@
 import React, { useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
 import { PenLine, Layers, Zap } from 'lucide-react';
 
 const features = [
   {
     icon: PenLine,
     title: '1. Describe',
-    description:
-      'Type what you want in plain English. "Build a subscription analytics dashboard for SaaS companies."',
-    sub: 'Plain English only. No code. Works for PMs and founders.',
+    description: 'Type what you want in plain English. No code required.',
   },
   {
     icon: Layers,
     title: '2. Design',
-    description:
-      'Get auto-generated system architecture, detailed PRDs, and Mermaid diagrams. Everything your team needs.',
-    sub: 'Architecture-as-code, PRDs, and Mermaid diagrams in minutes.',
+    description: 'Get auto-generated architecture, PRDs, and diagrams.',
   },
   {
     icon: Zap,
     title: '3. Ship',
-    description:
-      'Generate production-ready code. React, Node.js, databases, APIs — a complete working MVP.',
-    sub: 'Real code, not prototypes. Error handling and best practices included.',
+    description: 'Generate production-ready code for your entire stack.',
   },
 ];
 
@@ -53,23 +46,19 @@ const Features: React.FC = () => {
           <h2 className="text-h2 md:text-h2-lg font-bold text-[#1a1a2e] mb-4">
             From Idea to Product in Minutes
           </h2>
-          <p className="text-[#4a4a5a] text-body-lg">Three simple steps to ship faster than ever before</p>
+          <p className="text-[#4a4a5a] text-body-lg">Three simple steps to ship faster than ever</p>
         </div>
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
           {features.map((f, i) => (
             <div
               key={f.title}
-              className={`feature-card rounded-2xl p-8 reveal ${i === 1 ? 'stagger-1' : ''} ${i === 2 ? 'stagger-2' : ''}`}
+              className={`feature-card rounded-2xl p-8 text-center reveal ${i === 1 ? 'stagger-1' : ''} ${i === 2 ? 'stagger-2' : ''}`}
             >
-              <div className="icon-box w-14 h-14 bg-[#7c3aed] rounded-xl flex items-center justify-center mb-6">
+              <div className="icon-box w-14 h-14 bg-[#7c3aed] rounded-xl flex items-center justify-center mb-6 mx-auto">
                 <f.icon className="w-7 h-7 text-white" strokeWidth={2} />
               </div>
               <h3 className="text-h3 font-semibold text-[#1a1a2e] mb-3">{f.title}</h3>
-              <p className="text-[#4a4a5a] text-body mb-3">{f.description}</p>
-              <p className="text-[#6b7280] text-body-sm">{f.sub}</p>
-              <Link to="/docs/GETTING_STARTED" className="text-[#7c3aed] text-body-sm font-medium mt-4 inline-flex hover:underline focus-visible:ring-2 focus-visible:ring-[#7c3aed] focus-visible:ring-offset-2 rounded">
-                Learn more →
-              </Link>
+              <p className="text-[#4a4a5a] text-body">{f.description}</p>
             </div>
           ))}
         </div>

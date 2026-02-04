@@ -12,11 +12,9 @@ const Navbar: React.FC = () => {
   }, [location.pathname]);
 
   const navLinks = [
-    { name: 'Features', href: '/#features', path: '/' },
     { name: 'How it Works', href: '/#how-it-works', path: '/' },
-    { name: 'Docs', href: '/docs', path: '/docs' },
-    { name: 'Workflow', href: '/workflow', path: '/workflow' },
     { name: 'Pricing', href: '/pricing', path: '/pricing' },
+    { name: 'Docs', href: '/docs', path: '/docs' },
     { name: 'Downloads', href: '/downloads', path: '/downloads' },
   ];
 

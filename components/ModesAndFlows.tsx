@@ -1,26 +1,22 @@
 import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import { MessageSquare, Rocket, Code } from 'lucide-react';
 
-const bullets = [
+const flows = [
   {
-    title: 'Natural Language Input',
-    text: "No coding required. Describe your product like you're talking to a colleague.",
-    extra: 'Ship and Codegen start from a short description; Chat is always conversational.',
+    icon: MessageSquare,
+    title: 'Chat',
+    description: 'Conversational AI with tools. Ask questions, get answers, iterate on ideas.',
   },
   {
-    title: 'Intent-Driven Architecture',
-    text: 'Our Rust-powered intent compiler extracts requirements and generates optimal system designs.',
-    extra: 'Requirements become structured intent, then architecture and specs.',
+    icon: Rocket,
+    title: 'Ship',
+    description: 'Describe → Design → Spec → Code. Full product generation from a single prompt.',
   },
   {
-    title: 'Multi-Provider AI Router',
-    text: 'Intelligently routes between NVIDIA NIM/Nemotron, OpenRouter, Groq, and Ollama.',
-    extra: 'Use the best model for each task without locking into one vendor.',
-  },
-  {
-    title: 'Production-Ready Code',
-    text: 'Not prototypes. Real, tested code with error handling and best practices.',
-    extra: 'Deploy to your stack: React, Node.js, databases, and APIs.',
+    icon: Code,
+    title: 'Codegen',
+    description: 'PRD + architecture → multi-agent code generation. Production-ready output.',
   },
 ];
 
@@ -47,72 +43,35 @@ const ModesAndFlows: React.FC = () => {
   return (
     <section id="how-it-works" ref={sectionRef} className="py-28 bg-app">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          <div className="reveal">
-            <h2 className="text-h2 md:text-h2-lg font-bold text-[#1a1a2e] mb-6">
-              Built for Product Managers,
-              <br />
-              Not Just Engineers
-            </h2>
-            <p className="text-[#4a4a5a] mb-6 text-body-sm">
-              Three flows: <strong className="text-[#1a1a2e]">Chat</strong> (conversational AI with tools), <strong className="text-[#1a1a2e]">Ship</strong> (describe → design → spec → code), and <strong className="text-[#1a1a2e]">Codegen</strong> (PRD + architecture → multi-agent code). See <Link to="/docs/HOW_IT_WORKS" className="text-[#7c3aed] hover:underline">How It Works</Link> in the docs.
-            </p>
-            <div className="space-y-5">
-              {bullets.map((b) => (
-                <div key={b.title} className="flex gap-4 group">
-                  <div className="w-2 h-2 rounded-full bg-[#7c3aed] flex-shrink-0 mt-2 group-hover:scale-150 transition-transform" />
-                  <div>
-                    <h4 className="font-semibold text-[#1a1a2e] mb-1">{b.title}</h4>
-                    <p className="text-[#4a4a5a] text-body-sm">{b.text}</p>
-                    <p className="text-[#6b7280] text-body-sm mt-1">{b.extra}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="reveal">
-            <div className="code-window">
-              <div className="flex items-center gap-2 px-4 py-3 border-b border-white/10">
-                <div className="w-3 h-3 rounded-full bg-[#ff5f57]" />
-                <div className="w-3 h-3 rounded-full bg-[#febc2e]" />
-                <div className="w-3 h-3 rounded-full bg-[#28c840]" />
+        <div className="text-center mb-16 reveal">
+          <h2 className="text-h2 md:text-h2-lg font-bold text-[#1a1a2e] mb-4">
+            Three Ways to Build
+          </h2>
+          <p className="text-[#4a4a5a] text-body-lg max-w-2xl mx-auto">
+            Choose the workflow that fits your needs. All powered by intelligent AI routing.
+          </p>
+        </div>
+        <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto reveal">
+          {flows.map((f, i) => (
+            <div
+              key={f.title}
+              className={`p-8 rounded-2xl bg-white border border-[#e5e7eb] hover:border-[#7c3aed]/30 hover:shadow-lg transition-all ${i === 1 ? 'stagger-1' : ''} ${i === 2 ? 'stagger-2' : ''}`}
+            >
+              <div className="w-12 h-12 bg-[#7c3aed]/10 rounded-xl flex items-center justify-center mb-5">
+                <f.icon className="w-6 h-6 text-[#7c3aed]" strokeWidth={2} />
               </div>
-              <pre className="p-6 text-sm overflow-x-auto">
-                <code>
-                  <span style={{ color: '#ff7eb6' }}>const</span>{' '}
-                  <span style={{ color: '#a9dc76' }}>generateProduct</span> ={' '}
-                  <span style={{ color: '#ff7eb6' }}>async</span> () =&gt; {'{'}
-                  {'\n'}{'  '}
-                  <span style={{ color: '#727297' }}>// Describe your idea</span>
-                  {'\n'}{'  '}
-                  <span style={{ color: '#ff7eb6' }}>const</span> intent ={' '}
-                  <span style={{ color: '#78dce8' }}>
-                    &quot;Build a task management{'\n'}  app with team collaboration&quot;
-                  </span>
-                  ;
-                  {'\n\n'}{'  '}
-                  <span style={{ color: '#727297' }}>// G-Rump handles the rest</span>
-                  {'\n'}{'  '}
-                  <span style={{ color: '#ff7eb6' }}>const</span> architecture ={' '}
-                  <span style={{ color: '#ff7eb6' }}>await</span>
-                  {'\n'}    gRump.<span style={{ color: '#a9dc76' }}>designArchitecture</span>(intent);
-                  {'\n\n'}{'  '}
-                  <span style={{ color: '#ff7eb6' }}>const</span> prd ={' '}
-                  <span style={{ color: '#ff7eb6' }}>await</span>{' '}
-                  gRump.<span style={{ color: '#a9dc76' }}>generatePRD</span>(architecture);
-                  {'\n\n'}{'  '}
-                  <span style={{ color: '#ff7eb6' }}>const</span> code ={' '}
-                  <span style={{ color: '#ff7eb6' }}>await</span>{' '}
-                  gRump.<span style={{ color: '#a9dc76' }}>implement</span>(prd);
-                  {'\n\n'}{'  '}
-                  <span style={{ color: '#ff7eb6' }}>return</span> code;{' '}
-                  <span style={{ color: '#727297' }}>// Production ready 🚀</span>
-                  {'\n'}
-                  {'}'};
-                </code>
-              </pre>
+              <h3 className="text-h3 font-semibold text-[#1a1a2e] mb-3">{f.title}</h3>
+              <p className="text-[#4a4a5a] text-body-sm">{f.description}</p>
             </div>
-          </div>
+          ))}
+        </div>
+        <div className="text-center mt-10 reveal">
+          <Link
+            to="/docs/HOW_IT_WORKS"
+            className="text-[#7c3aed] text-body-sm font-medium hover:underline"
+          >
+            Learn more in the docs →
+          </Link>
         </div>
       </div>
     </section>
